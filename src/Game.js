@@ -6,6 +6,10 @@ import PlayerCard from './PlayerCard';
 
 const Game = (props) => {
 
+    const refresh = () => {
+        window.location.reload(false);
+    }
+
     const [ computerDeck, setComputerDeck ] = useState([]);
     const [ playerDeck, setPlayerDeck ] = useState([]);
     const [ statChoice, setStatChoice ] = useState("");
@@ -65,7 +69,7 @@ const Game = (props) => {
     }, [])
 
     useEffect(() => {
-        if(gameOver === true){
+        if(gameOver === true && playerDeck.length > 1){
             push(dbRef, player);
         }
     }, [gameOver])
@@ -265,6 +269,11 @@ const Game = (props) => {
                 turnPosition === 5
                 ? <div className="gameOver">
                     <h3>GAME OVER</h3>
+                    {
+                        playerDeck.length > 1
+                        ? <h4>You won!!</h4>
+                        : <h4>Try again!!</h4>
+                    }
                     <p>Here are our latest champions:</p>
                     <ol>
                         { recentPlayers.slice(0).reverse().map((player, index) => {
@@ -275,6 +284,7 @@ const Game = (props) => {
                             }
                         }) }
                     </ol>
+                    <button className="button" onClick={refresh}>Play Again</button>
                 </div>
                 : null
             }

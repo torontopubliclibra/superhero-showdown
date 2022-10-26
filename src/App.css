@@ -37,20 +37,30 @@ main {
   display: flex;
   flex-direction: column;
   padding: 50px 0px;
+  width: 400px;
 }
 
 .startScreen label,
 .startScreen input,
 .startScreen button {
-  margin: 5px;
+  margin: 10px auto;
+}
+
+.startScreen label {
+  font-size: 18px;
 }
 
 .startScreen input {
-    background-color: #fff;
-    padding: 5px 10px;
-    font-size: 15px;
-    border: solid #ff1616 2px;
-    border-radius: 10px;
+  background-color: #fff;
+  width: 90%;
+  padding: 10px;
+  font-size: 15px;
+  border: solid #ff1616 2px;
+  border-radius: 10px;
+}
+
+.startScreen button {
+  width: 60%;
 }
 
 .game {
@@ -109,11 +119,17 @@ main {
   margin: 10px;
 }
 
+.gameOver h4 {
+  font-size: 25px;
+  margin: 25px;
+}
+
 .gameOver ol {
   color: #fff;
   background-color: #ff1616;
   border-radius: 10px;
   padding: 20px 0px;
+  margin: 20px 0px;
 }
 
 .gameOver ol li {
