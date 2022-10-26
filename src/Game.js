@@ -120,28 +120,28 @@ const Game = (props) => {
             const losingCard = newComputerDeck[0];
             const winningCard = newPlayerDeck[0];
             newPlayerDeck.splice(0, 1);
+            newComputerDeck.splice(0, 1);
             newPlayerDeck.push(losingCard, winningCard);
             newPot.forEach((card) => {
                 newPlayerDeck.push(card);
             })
-            newComputerDeck.splice(0, 1);
             setPot(defaultPot);
         } else if (turnPosition === 3){
             const playerCard = newComputerDeck[0];
             const computerCard = newPlayerDeck[0];
-            newPot.push(playerCard, computerCard);
-            setPot(newPot);
             newPlayerDeck.splice(0, 1);
             newComputerDeck.splice(0, 1);;
+            newPot.push(playerCard, computerCard);
+            setPot(newPot);
         } else if (turnPosition === 4){
             const winningCard = newComputerDeck[0];
             const losingCard = newPlayerDeck[0];
             newComputerDeck.splice(0, 1);
+            newPlayerDeck.splice(0, 1);
             newComputerDeck.push(losingCard, winningCard);
             newPot.forEach((card) => {
                 newComputerDeck.push(card);
             })
-            newPlayerDeck.splice(0, 1);
             setPot(defaultPot);
         }
         setPlayerDeck(newPlayerDeck);
@@ -170,11 +170,6 @@ const Game = (props) => {
                 turnPosition === 1
                 ? <div className="gameArea">
                     <h4>V.S.</h4>
-                    {
-                        pot.length > 0
-                        ? <p className="pot">Pot: {pot.length}</p>
-                        : null
-                    }
                     <form>
                         <label htmlFor="statistics">Select the statistic that you think will beat your opponent:</label>
                         <select id="statistics" onChange={handleInputChange}>
@@ -187,6 +182,11 @@ const Game = (props) => {
                         </select>
                         <button className="button" onClick={checkStats}>Submit</button>
                     </form>
+                    {
+                        pot.length > 0
+                        ? <p className="pot">Pot: {pot.length}</p>
+                        : null
+                    }
                 </div>
                 : null
             }
@@ -194,11 +194,6 @@ const Game = (props) => {
             
                 ? <div className="gameArea">
                     <h4>YOU WIN</h4>
-                    {
-                        pot.length > 0
-                        ? <p className="pot">Pot: {pot.length}</p>
-                        : null
-                    }
                     <p>You beat {computerDeck[0].data.name}!</p>
                     <p>The card {
                             pot.length > 0
@@ -211,6 +206,11 @@ const Game = (props) => {
                         ? <button className="button" onClick={nextTurn}>Next Turn</button>
                         : <button className="button" onClick={endGame}>End Game</button>
                     }
+                    {
+                        pot.length > 0
+                        ? <p className="pot">Pot: {pot.length}</p>
+                        : null
+                    }
                 </div>
                 : null
             }
@@ -218,17 +218,17 @@ const Game = (props) => {
                 turnPosition === 3
                 ? <div className="gameArea">
                     <h4>YOU TIE</h4>
-                    {
-                        pot.length > 0
-                        ? <p className="pot">Pot: {pot.length}</p>
-                        : null
-                    }
                     <p>You tied {computerDeck[0].data.name}!</p>
                     <p>Both cards will be added to the pot.</p>
                     {
                         !gameOver
                         ? <button className="button" onClick={nextTurn}>Next Turn</button>
                         : <button className="button" onClick={endGame}>End Game</button>
+                    }
+                    {
+                        pot.length > 0
+                        ? <p className="pot">Pot: {pot.length}</p>
+                        : null
                     }
                 </div>
                 : null
@@ -237,11 +237,6 @@ const Game = (props) => {
                 turnPosition === 4
                 ? <div className="gameArea">
                     <h4>YOU LOSE</h4>
-                    {
-                        pot.length > 0
-                        ? <p className="pot">Pot: {pot.length}</p>
-                        : null
-                    }
                     <p>You lost to {computerDeck[0].data.name}!</p>
                     <p>Your card {
                             pot.length > 0
@@ -253,6 +248,11 @@ const Game = (props) => {
                         !gameOver
                         ? <button className="button" onClick={nextTurn}>Next Turn</button>
                         : <button className="button" onClick={endGame}>End Game</button>
+                    }
+                    {
+                        pot.length > 0
+                        ? <p className="pot">Pot: {pot.length}</p>
+                        : null
                     }
                 </div>
                 : null

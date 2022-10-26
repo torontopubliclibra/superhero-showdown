@@ -1,6 +1,8 @@
 .App {
+  font-family: 'Lexend', sans-serif;
   text-align: center;
   color: #000;
+  animation: fadeIn 0.5s;
 }
 
 @keyframes fadeIn {
@@ -17,11 +19,11 @@ header {
 }
 
 header h1 {
-  font-size: 50px;
+  font-size: 75px;
   margin: 0;
   padding: 10px 0px;
   color: #ff1616;
-  text-shadow: 2px 2px 0px #ffde59;
+  text-shadow: 5px 5px 0px #000;
   text-transform: uppercase;
 }
 
@@ -34,6 +36,7 @@ header h2 {
 main {
   background-color: #ffde59;
   border: solid #ff1616 5px;
+  box-shadow: 10px 10px #000;
   border-radius: 40px;
   display: flex;
   width: 90%;
@@ -77,6 +80,7 @@ main {
   width: 100%;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.5s;
 }
 
 .gameArea {
@@ -96,6 +100,8 @@ main {
 
 .gameArea h4 {
   font-size: 40px;
+  color: #ff1616;
+  text-shadow: 3px 3px 0px #000;
   margin: 15px 0;
 }
 
@@ -116,6 +122,15 @@ main {
 
 .gameArea form select:hover {
   cursor: pointer;
+}
+
+.pot {
+  background-color: #38b6ff;
+  width: 40%;
+  margin: 10px auto;
+  padding: 10px;
+  border: solid #ff1616 2px;
+  border-radius: 10px;
 }
 
 .gameOver {
@@ -150,11 +165,13 @@ main {
   padding: 10px;
   font-size: 20px;
   background-color: #fff;
-  border: solid #ff1616 2px;
+  border: solid #000 2px;
+  transition: box-shadow 0.5s;
 }
 
 .button:hover {
   cursor: pointer;
+  box-shadow: 5px 5px #ff1616;
 }
 
 .gameArea form button {
@@ -170,16 +187,20 @@ main {
 .playerCard,
 .computerCard {
   width: 100%;
+  height: 100%;
   position: relative;
   color: #fff;
-  overflow: hidden;
   animation: fadeIn 0.5s;
+  box-shadow: 7px 7px #000;
+  overflow: hidden;
+  z-index: 0;
 }
 
 .playerCard img,
 .computerCard img {
   width: 100%;
   height: 100%;
+  transform: scale(1.1);
   aspect-ratio: 3/4.5;
   object-fit: cover;
 }
@@ -191,6 +212,7 @@ main {
   transform: translateX(-50%);
   margin: 0px 0px;
   width: 100%;
+  z-index: 3;
 }
 
 .cardTitle p {
@@ -200,11 +222,12 @@ main {
 
 .cardStats {
   position: absolute;
-  bottom: 4px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   animation: fadeIn 0.5s;
+  z-index: 3;
 }
 
 .cardStats ul {
