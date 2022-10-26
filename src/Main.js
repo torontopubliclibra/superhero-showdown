@@ -42,11 +42,11 @@ const Main = () => {
             {
                 !gameStart
                 ? <>
-                <form className="startScreen">
-                    <label htmlFor="nameInput">Enter your first name:</label>
-                    <input onChange={handleInputChange} type="text" id="nameInput"/>
-                    <button className="button" onClick={handleGameStart}>Start Game</button>
-                </form>
+                    <form className="startScreen">
+                        <label htmlFor="nameInput">Enter your first name:</label>
+                        <input onChange={handleInputChange} type="text" id="nameInput"/>
+                        <button className="button" onClick={handleGameStart}>Start Game</button>
+                    </form>
                 </>
                 : <Game deck={characterDeck} name={playerName}/>
             }

@@ -56,6 +56,7 @@ const Game = (props) => {
         const deckTwo = [];
 
         shuffle(deck);
+
         for (let character in deck){
             if (character <= (deck.length/2 - 1)){
                 deckOne.push(deck[character])
