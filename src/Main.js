@@ -45,10 +45,10 @@ const Main = () => {
                 <form className="startScreen">
                     <label htmlFor="nameInput">Enter your name:</label>
                     <input onChange={handleInputChange} type="text" id="nameInput"/>
-                    <button onClick={handleGameStart}>Start Game</button>
+                    <button className="button" onClick={handleGameStart}>Start Game</button>
                 </form>
                 </>
-                : <Game deck={characterDeck} />
+                : <Game deck={characterDeck} name={playerName}/>
             }
         </main>
     )

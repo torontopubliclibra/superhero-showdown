@@ -24,19 +24,24 @@ const PlayerCard = (props) => {
 
     let cardStyles = {
         backgroundColor: color,
+        opacity: 0.8
     }
 
     return (
         <div className="playerCard">
-            <p style= {cardStyles} >{name}</p>
+            <div className="cardTitle">
+                <p style= {cardStyles} >{name}</p>
+            </div>
             <img src={img} alt={alt} title={alt}/>
-            <ul className="stats" style= {cardStyles} >
-                <li>Intelligence: {int}</li>
-                <li>Strength: {str}</li>
-                <li>Speed: {spd}</li>
-                <li>Durability: {dur}</li>
-                <li>Fighting: {fig}</li>
-            </ul>
+            <div className="cardStats">
+                <ul className="stats" style= {cardStyles} >
+                    <li>Intelligence: {int}</li>
+                    <li>Strength: {str}</li>
+                    <li>Speed: {spd}</li>
+                    <li>Durability: {dur}</li>
+                    <li>Fighting: {fig}</li>
+                </ul>
+            </div>
         </div>
     )
 }

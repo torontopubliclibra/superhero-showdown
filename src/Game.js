@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { getDatabase, ref, onValue, push, remove } from 'firebase/database';
+import firebase from './firebase';
 import ComputerCard from './ComputerCard';
 import PlayerCard from './PlayerCard';
 
@@ -9,7 +11,16 @@ const Game = (props) => {
     const [ statChoice, setStatChoice ] = useState("");
     const [ pot, setPot ] = useState([]);
     const [ turnPosition, setTurnPosition ] = useState(1);
+    const [ gameOver, setGameOver ] = useState(false);
     const [ displayCompStats, setDisplayCompStats ] = useState(false);
+    const [ player, setPlayer ] = useState("");
+    const [ recentPlayers, setRecentPlayers ] = useState([])
+
+    const establishGame = () => {
+        const current = new Date();
+        const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`
+        setPlayer([props.name, date])
+    }
 
     const shuffle = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -21,7 +32,22 @@ const Game = (props) => {
         return array;
     };
 
+    const database = getDatabase(firebase);
+    const dbRef = ref(database, `/players`);
+
     useEffect(() => {
+
+        establishGame();
+
+        onValue(dbRef, (response) => {
+            const newRecentPlayers = [];
+            const playerNames = response.val();
+            for (let player in playerNames){
+                newRecentPlayers.push(playerNames[player])
+            }
+            setRecentPlayers(newRecentPlayers);
+        })
+
         const deck = props.deck;
 
         const deckOne = [];
@@ -38,8 +64,13 @@ const Game = (props) => {
 
         setComputerDeck(deckOne);
         setPlayerDeck(deckTwo);
-
     }, [])
+
+    useEffect(() => {
+        if(gameOver === true){
+            push(dbRef, player);
+        }
+    }, [gameOver])
 
     const handleInputChange = (event) => {
         setStatChoice(event.target.value);
@@ -48,24 +79,30 @@ const Game = (props) => {
     const checkStats = (event) => {
         event.preventDefault();
 
-        if (playerDeck.length === 0 || computerDeck === 0){
-            setTurnPosition(5);
-        } else {
-            if (statChoice){
-                const playerStat = playerDeck[0].data[statChoice];
-                const computerStat = computerDeck[0].data[statChoice];
+        if (statChoice){
+            const playerStat = playerDeck[0].data[statChoice];
+            const computerStat = computerDeck[0].data[statChoice];
 
-                if (playerStat > computerStat) {
-                    setTurnPosition(2);
-                } else if (playerStat === computerStat) {
-                    setTurnPosition(3);
-                } else if (playerStat < computerStat){
-                    setTurnPosition(4);
+            if (playerStat > computerStat) {
+                setTurnPosition(2);
+                if (computerDeck.length === 1){
+                    setGameOver(true);
                 }
-                setDisplayCompStats(true);
-            } else {
-                alert('Please make a selection');
+            } else if (playerStat === computerStat) {
+                setTurnPosition(3);
+                if (playerDeck.length === 1 || computerDeck.length === 1){
+                    setGameOver(true);
+                }
+            } else if (playerStat < computerStat){
+                setTurnPosition(4);
+                if (playerDeck.length === 1){
+                    setGameOver(true);
+                }
             }
+
+            setDisplayCompStats(true);
+        } else {
+            alert('Please make a selection');
         }
 
     }
@@ -75,6 +112,7 @@ const Game = (props) => {
         const newComputerDeck = computerDeck;
         const newPot = pot;
         const defaultPot = [];
+
         if (turnPosition === 2){
             const losingCard = newComputerDeck[0];
             const winningCard = newPlayerDeck[0];
@@ -110,12 +148,16 @@ const Game = (props) => {
         setStatChoice("");
     }
 
+    const endGame = () => {
+        setTurnPosition(5);
+    }
+
     return (
         <section className="game">
             {
                 turnPosition !== 5
                 ? <div className="playerHand">
-                    <p>Your Card</p>
+                    <h3>Your Card</h3>
                     <PlayerCard card={playerDeck[0]}/>
                     <p>Deck: {playerDeck.length}</p>
                 </div>
@@ -132,16 +174,16 @@ const Game = (props) => {
                             : null
                         }
                         <form>
-                            <label htmlFor="statistics">Select the stat that you think will beat your opponent:</label>
+                            <label htmlFor="statistics">Select the statistic that you think will beat your opponent:</label>
                             <select id="statistics" onChange={handleInputChange}>
-                                <option value="" default>Select a stat:</option>
+                                <option value="" default>Select a statistic:</option>
                                 <option value="int" default>Intelligence</option>
                                 <option value="str">Strength</option>
                                 <option value="spd">Speed</option>
                                 <option value="dur">Durability</option>
                                 <option value="fig">Fighting</option>
                             </select>
-                            <button onClick={checkStats}>Submit</button>
+                            <button className="button" onClick={checkStats}>Submit</button>
                         </form>
                     </>
                     : null
@@ -150,9 +192,23 @@ const Game = (props) => {
                     turnPosition === 2
                     ? <>
                         <h4>YOU WIN</h4>
+                        {
+                            pot.length > 0
+                            ? <p className="pot">Pot: {pot.length}</p>
+                            : null
+                        }
                         <p>You beat {computerDeck[0].data.name}!</p>
-                        <p>The card will be added to your deck.</p>
-                        <button onClick={nextTurn}>Next Turn</button>
+                        <p>The card {
+                                pot.length > 0
+                                ? `and the entire pot `
+                                : ``
+                            }
+                            will be added to your deck.</p>
+                        {
+                            !gameOver
+                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                            : <button className="button" onClick={endGame}>End Game</button>
+                        }
                     </>
                     : null
                 }
@@ -160,9 +216,18 @@ const Game = (props) => {
                     turnPosition === 3
                     ? <>
                         <h4>YOU TIE</h4>
+                        {
+                            pot.length > 0
+                            ? <p className="pot">Pot: {pot.length}</p>
+                            : null
+                        }
                         <p>You tied {computerDeck[0].data.name}!</p>
                         <p>Both cards will be added to the pot.</p>
-                        <button onClick={nextTurn}>Next Turn</button>
+                        {
+                            !gameOver
+                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                            : <button className="button" onClick={endGame}>End Game</button>
+                        }
                     </>
                     : null
                 }
@@ -170,9 +235,23 @@ const Game = (props) => {
                     turnPosition === 4
                     ? <>
                         <h4>YOU LOSE</h4>
+                        {
+                            pot.length > 0
+                            ? <p className="pot">Pot: {pot.length}</p>
+                            : null
+                        }
                         <p>You lost to {computerDeck[0].data.name}!</p>
-                        <p>Your card will be added to your opponent's deck.</p>
-                        <button onClick={nextTurn}>Next Turn</button>
+                        <p>Your card {
+                                pot.length > 0
+                                ? `and the entire pot `
+                                : ``
+                            }
+                            will be added to your opponent's deck.</p>
+                        {
+                            !gameOver
+                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                            : <button className="button" onClick={endGame}>End Game</button>
+                        }
                     </>
                     : null
                 }
@@ -180,6 +259,12 @@ const Game = (props) => {
                     turnPosition === 5
                     ? <>
                         <h4>GAME OVER</h4>
+                        <p>Here's the leaderboard:</p>
+                        <ul>
+                            <li>
+                                {recentPlayers[0][0]}
+                            </li>
+                        </ul>
                     </>
                     : null
                 }
@@ -187,7 +272,7 @@ const Game = (props) => {
             {
                 turnPosition !== 5
                 ? <div className="computerHand">
-                    <p>Your Opponent's Card</p>
+                    <h3>Your Opponent's Card</h3>
                     <ComputerCard displayStats={displayCompStats} card={computerDeck[0]}/>
                     <p>Deck: {computerDeck.length}</p>
                 </div>
