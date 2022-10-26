@@ -2,37 +2,106 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+main {
+  background-color: #ffde59;
+  border: solid #ffde59 2px;
+  border-radius: 40px;
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.startScreen {
+  display: flex;
+  flex-direction: column;
+  padding: 50px 0px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.startScreen label,
+.startScreen input,
+.startScreen button {
+  margin: 5px;
+}
+
+.game {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.gameArea {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 40px;
+}
+
+.gameArea form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 0 auto;
 }
 
-.App-link {
-  color: #61dafb;
+.gameArea h4 {
+  font-size: 30px;
+  margin: 15px 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.gameArea form label,
+.gameArea form input,
+.gameArea form button {
+  margin: 10px 0;
+}
+
+.playerHand,
+.computerHand {
+  width: 25%;
+}
+
+.playerCard,
+.computerCard {
+  width: 100%;
+  position: relative;
+  color: #fff;
+}
+
+.playerCard img,
+.computerCard img {
+  width: 100%;
+  aspect-ratio: 3/4.5;
+  object-fit: cover;
+}
+
+.playerCard p,
+.computerCard p {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.playerCard ul,
+.computerCard ul {
+  text-align: left;
+  list-style: none;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0px;
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.playerCard ul li,
+.computerCard ul li {
+  padding-left: 15px;
 }
