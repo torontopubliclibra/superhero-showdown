@@ -17,9 +17,7 @@ const Game = (props) => {
     const [ recentPlayers, setRecentPlayers ] = useState([])
 
     const establishGame = () => {
-        const current = new Date();
-        const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`
-        setPlayer([props.name, date])
+        setPlayer(props.name)
     }
 
     const shuffle = (array) => {
@@ -43,7 +41,7 @@ const Game = (props) => {
             const newRecentPlayers = [];
             const playerNames = response.val();
             for (let player in playerNames){
-                newRecentPlayers.push(playerNames[player])
+                newRecentPlayers.push({key: player, name: playerNames[player]})
             }
             setRecentPlayers(newRecentPlayers);
         })
@@ -163,118 +161,118 @@ const Game = (props) => {
                 </div>
                 : null
             }
-            <div className="gameArea">
-                {
-                    turnPosition === 1
-                    ? <>
-                        <h4>V.S.</h4>
-                        {
+            {
+                turnPosition === 1
+                ? <div className="gameArea">
+                    <h4>V.S.</h4>
+                    {
+                        pot.length > 0
+                        ? <p className="pot">Pot: {pot.length}</p>
+                        : null
+                    }
+                    <form>
+                        <label htmlFor="statistics">Select the statistic that you think will beat your opponent:</label>
+                        <select id="statistics" onChange={handleInputChange}>
+                            <option value="" default>Select a statistic:</option>
+                            <option value="int" default>Intelligence</option>
+                            <option value="str">Strength</option>
+                            <option value="spd">Speed</option>
+                            <option value="dur">Durability</option>
+                            <option value="fig">Fighting</option>
+                        </select>
+                        <button className="button" onClick={checkStats}>Submit</button>
+                    </form>
+                </div>
+                : null
+            }
+            {    turnPosition === 2
+            
+                ? <div className="gameArea">
+                    <h4>YOU WIN</h4>
+                    {
+                        pot.length > 0
+                        ? <p className="pot">Pot: {pot.length}</p>
+                        : null
+                    }
+                    <p>You beat {computerDeck[0].data.name}!</p>
+                    <p>The card {
                             pot.length > 0
-                            ? <p className="pot">Pot: {pot.length}</p>
-                            : null
+                            ? `and the entire pot `
+                            : ``
                         }
-                        <form>
-                            <label htmlFor="statistics">Select the statistic that you think will beat your opponent:</label>
-                            <select id="statistics" onChange={handleInputChange}>
-                                <option value="" default>Select a statistic:</option>
-                                <option value="int" default>Intelligence</option>
-                                <option value="str">Strength</option>
-                                <option value="spd">Speed</option>
-                                <option value="dur">Durability</option>
-                                <option value="fig">Fighting</option>
-                            </select>
-                            <button className="button" onClick={checkStats}>Submit</button>
-                        </form>
-                    </>
-                    : null
-                }
-                {
-                    turnPosition === 2
-                    ? <>
-                        <h4>YOU WIN</h4>
-                        {
+                        will be added to your deck.</p>
+                    {
+                        !gameOver
+                        ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                        : <button className="button" onClick={endGame}>End Game</button>
+                    }
+                </div>
+                : null
+            }
+            {
+                turnPosition === 3
+                ? <div className="gameArea">
+                    <h4>YOU TIE</h4>
+                    {
+                        pot.length > 0
+                        ? <p className="pot">Pot: {pot.length}</p>
+                        : null
+                    }
+                    <p>You tied {computerDeck[0].data.name}!</p>
+                    <p>Both cards will be added to the pot.</p>
+                    {
+                        !gameOver
+                        ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                        : <button className="button" onClick={endGame}>End Game</button>
+                    }
+                </div>
+                : null
+            }
+            {
+                turnPosition === 4
+                ? <div className="gameArea">
+                    <h4>YOU LOSE</h4>
+                    {
+                        pot.length > 0
+                        ? <p className="pot">Pot: {pot.length}</p>
+                        : null
+                    }
+                    <p>You lost to {computerDeck[0].data.name}!</p>
+                    <p>Your card {
                             pot.length > 0
-                            ? <p className="pot">Pot: {pot.length}</p>
-                            : null
+                            ? `and the entire pot `
+                            : ``
                         }
-                        <p>You beat {computerDeck[0].data.name}!</p>
-                        <p>The card {
-                                pot.length > 0
-                                ? `and the entire pot `
-                                : ``
-                            }
-                            will be added to your deck.</p>
-                        {
-                            !gameOver
-                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
-                            : <button className="button" onClick={endGame}>End Game</button>
-                        }
-                    </>
-                    : null
-                }
-                {
-                    turnPosition === 3
-                    ? <>
-                        <h4>YOU TIE</h4>
-                        {
-                            pot.length > 0
-                            ? <p className="pot">Pot: {pot.length}</p>
-                            : null
-                        }
-                        <p>You tied {computerDeck[0].data.name}!</p>
-                        <p>Both cards will be added to the pot.</p>
-                        {
-                            !gameOver
-                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
-                            : <button className="button" onClick={endGame}>End Game</button>
-                        }
-                    </>
-                    : null
-                }
-                {
-                    turnPosition === 4
-                    ? <>
-                        <h4>YOU LOSE</h4>
-                        {
-                            pot.length > 0
-                            ? <p className="pot">Pot: {pot.length}</p>
-                            : null
-                        }
-                        <p>You lost to {computerDeck[0].data.name}!</p>
-                        <p>Your card {
-                                pot.length > 0
-                                ? `and the entire pot `
-                                : ``
-                            }
-                            will be added to your opponent's deck.</p>
-                        {
-                            !gameOver
-                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
-                            : <button className="button" onClick={endGame}>End Game</button>
-                        }
-                    </>
-                    : null
-                }
-                {
-                    turnPosition === 5
-                    ? <>
-                        <h4>GAME OVER</h4>
-                        <p>Here's the leaderboard:</p>
-                        <ul>
-                            <li>
-                                {recentPlayers[0][0]}
-                            </li>
-                        </ul>
-                    </>
-                    : null
-                }
-            </div>
+                        will be added to your opponent's deck.</p>
+                    {
+                        !gameOver
+                        ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                        : <button className="button" onClick={endGame}>End Game</button>
+                    }
+                </div>
+                : null
+            }
             {
                 turnPosition !== 5
                 ? <div className="computerHand">
                     <h3>Your Opponent's Card</h3>
                     <ComputerCard displayStats={displayCompStats} card={computerDeck[0]}/>
                     <p>Deck: {computerDeck.length}</p>
+                </div>
+                : null
+            }
+            {
+                turnPosition === 5
+                ? <div className="gameOver">
+                    <h3>GAME OVER</h3>
+                    <p>Here are some other recent players:</p>
+                    <ul>
+                        { recentPlayers.map((player) => {
+                            return(
+                                <li key={player.key}>{player.name}</li>
+                            )
+                        }) }
+                    </ul>
                 </div>
                 : null
             }

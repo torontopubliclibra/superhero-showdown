@@ -99,6 +99,28 @@ main {
   cursor: pointer;
 }
 
+.gameOver {
+  padding: 30px 0px;
+  width: 50%;
+}
+
+.gameOver h3 {
+  font-size: 30px;
+  margin: 10px;
+}
+
+.gameOver ul {
+  color: #fff;
+  background-color: #ff1616;
+  border-radius: 10px;
+  list-style: none;
+  padding: 20px 0px;
+}
+
+.gameOver ul li {
+  font-size: 25px;
+}
+
 .button {
   border-radius: 10px;
   padding: 10px;
