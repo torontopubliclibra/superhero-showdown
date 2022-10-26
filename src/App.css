@@ -109,15 +109,14 @@ main {
   margin: 10px;
 }
 
-.gameOver ul {
+.gameOver ol {
   color: #fff;
   background-color: #ff1616;
   border-radius: 10px;
-  list-style: none;
   padding: 20px 0px;
 }
 
-.gameOver ul li {
+.gameOver ol li {
   font-size: 25px;
 }
 

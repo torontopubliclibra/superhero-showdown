@@ -265,14 +265,16 @@ const Game = (props) => {
                 turnPosition === 5
                 ? <div className="gameOver">
                     <h3>GAME OVER</h3>
-                    <p>Here are some other recent players:</p>
-                    <ul>
-                        { recentPlayers.map((player) => {
-                            return(
-                                <li key={player.key}>{player.name}</li>
-                            )
+                    <p>Here are our latest champions:</p>
+                    <ol>
+                        { recentPlayers.slice(0).reverse().map((player, index) => {
+                            if(index < 5){
+                                return(
+                                    <li key={player.key}>{player.name}</li>
+                                )
+                            }
                         }) }
-                    </ul>
+                    </ol>
                 </div>
                 : null
             }
