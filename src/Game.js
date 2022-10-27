@@ -25,16 +25,6 @@ const Game = (props) => {
         setPlayer(props.name)
     }
 
-    const shuffle = (array) => {
-        for (let i = array.length - 1; i > 0; i--) {
-            let j = Math.floor(Math.random() * (i + 1));
-            let temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
-        return array;
-    };
-
     const randomize = (array) => {
         const randomIndex = Math.floor(Math.random() * array.length);
         const item = array[randomIndex];
@@ -76,8 +66,6 @@ const Game = (props) => {
 
         const deckOne = [];
         const deckTwo = [];
-
-        shuffle(deck);
 
         for (let character in deck){
             if (character <= (deck.length/2 - 1)){
@@ -186,7 +174,7 @@ const Game = (props) => {
                 ? <div className="playerHand">
                     <h3>Your Card</h3>
                     <PlayerCard card={playerDeck[0]}/>
-                    <p>Deck: {playerDeck.length}</p>
+                    <p className="deck">Deck: {playerDeck.length}</p>
                 </div>
                 : null
             }
@@ -194,7 +182,7 @@ const Game = (props) => {
                 turnState === 1 && playerDeck[0] && computerDeck[0]
                 ? <>
                     <div className="gameText">
-                        <h4>V.S.</h4>
+                        <h4>VERSUS</h4>
                         <p className="phrase">{computerDeck[0].data.name} says "{phrase}, {playerDeck[0].data.name}."</p>
                     </div>
                     <div className="gameArea">
@@ -226,8 +214,7 @@ const Game = (props) => {
                         <h4>YOU WIN</h4>
                     </div>
                     <div className="gameArea">
-                        <p>{playerDeck[0].data.name} beat {computerDeck[0].data.name}!</p>
-                        <p>The card {
+                        <p>{playerDeck[0].data.name} beat {computerDeck[0].data.name}! The card {
                                 pot.length > 0
                                 ? `and the entire pot `
                                 : ``
@@ -276,8 +263,7 @@ const Game = (props) => {
                         <h4>YOU LOSE</h4>
                     </div>
                     <div className="gameArea">
-                        <p>{computerDeck[0].data.name} beat {playerDeck[0].data.name}!</p>
-                        <p>Your card {
+                        <p>{computerDeck[0].data.name} beat {playerDeck[0].data.name}! Your card {
                                 pot.length > 0
                                 ? `and the entire pot `
                                 : ``
@@ -302,7 +288,7 @@ const Game = (props) => {
                 ? <div className="computerHand">
                     <h3>Your Opponent's Card</h3>
                     <ComputerCard displayStats={displayCompStats} card={computerDeck[0]}/>
-                    <p>Deck: {computerDeck.length}</p>
+                    <p  className="deck">Deck: {computerDeck.length}</p>
                 </div>
                 : null
             }
