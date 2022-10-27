@@ -21,10 +21,6 @@ const Game = (props) => {
     const [ recentPlayers, setRecentPlayers ] = useState([])
     const [ phrase, setPhrase ] = useState("You'll never take me alive");
 
-    const establishGame = () => {
-        setPlayer(props.name)
-    }
-
     const randomize = (array) => {
         const randomIndex = Math.floor(Math.random() * array.length);
         const item = array[randomIndex];
@@ -46,12 +42,15 @@ const Game = (props) => {
         "It's clobberin' time"
     ]
 
-    const database = getDatabase(firebase);
-    const dbRef = ref(database, `/players`);
-
     useEffect(() => {
 
-        establishGame();
+        const database = getDatabase(firebase);
+        const dbRef = ref(database, `/players`);
+
+        const playerName = props.name;
+        const deck = props.deck;
+
+        setPlayer(playerName);
 
         onValue(dbRef, (response) => {
             const newRecentPlayers = [];
@@ -59,10 +58,9 @@ const Game = (props) => {
             for (let player in playerNames){
                 newRecentPlayers.push({key: player, name: playerNames[player]})
             }
+            newRecentPlayers.reverse();
             setRecentPlayers(newRecentPlayers);
         })
-
-        const deck = props.deck;
 
         const deckOne = [];
         const deckTwo = [];
@@ -77,13 +75,8 @@ const Game = (props) => {
 
         setComputerDeck(deckOne);
         setPlayerDeck(deckTwo);
-    }, [])
 
-    useEffect(() => {
-        if(gameOver === true && playerDeck.length > 1){
-            push(dbRef, player);
-        }
-    }, [gameOver])
+    }, [props])
 
     const handleInputChange = (event) => {
         setStatChoice(event.target.value);
@@ -165,6 +158,11 @@ const Game = (props) => {
 
     const endGame = () => {
         setTurnState(5);
+        if(gameOver === true && playerDeck.length > 1){
+            const database = getDatabase(firebase);
+            const dbRef = ref(database, `/players`);
+            push(dbRef, player);
+        }
     }
 
     return (
@@ -303,12 +301,10 @@ const Game = (props) => {
                     }
                     <p>Here are our latest champions:</p>
                     <ol>
-                        { recentPlayers.slice(0).reverse().map((player, index) => {
-                            if(index < 5){
-                                return(
-                                    <li key={player.key}>{player.name}</li>
-                                )
-                            }
+                        { recentPlayers.slice(0, 5).map((player, index) => {
+                            return(
+                                <li key={player.key}>{player.name}</li>
+                            )
                         }) }
                     </ol>
                     <button className="button" onClick={refresh}>Play Again</button>
