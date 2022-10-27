@@ -49,9 +49,12 @@ const Main = () => {
     }, [])
 
     const handleGameStart = (event) => {
-        event.preventDefault()
         if (playerName){
+            event.preventDefault()
             setGameStart(true);
+        } else {
+            event.preventDefault()
+            alert('Please enter your name.')
         }
     }
 

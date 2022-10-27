@@ -3,6 +3,8 @@ const PlayerCard = (props) => {
     let name = "";
     let img = "";
     let alt = "";
+    let url = "";
+    let aka = "";
     let int = 0;
     let str = 0;
     let spd = 0;
@@ -14,6 +16,10 @@ const PlayerCard = (props) => {
         name = props.card.data.name;
         img = props.card.data.img;
         alt = `Illustration of ` + props.card.data.name;
+        url = props.card.data.url;
+        if (props.card.data.aka){
+            aka = `(` + props.card.data.aka + `)`;
+        }
         int = props.card.data.int;
         str = props.card.data.str;
         spd = props.card.data.spd;
@@ -30,9 +36,15 @@ const PlayerCard = (props) => {
     return (
         <div className="playerCard">
             <div className="cardTitle">
-                <p style= {cardStyles} >{name}</p>
+                <p style= {cardStyles} ><a href={url} target="_blank">{name}</a><br/>
+                {
+                    aka
+                    ? aka
+                    : null
+                }
+                </p>
             </div>
-            <img src={img} alt={alt} title={alt}/>
+            <img src={img} alt={alt}/>
             <div className="cardStats">
                 <ul className="stats" style= {cardStyles} >
                     <li>Intelligence: {int}</li>

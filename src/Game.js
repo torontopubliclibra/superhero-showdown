@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getDatabase, ref, onValue, push, remove } from 'firebase/database';
+import { getDatabase, ref, onValue, push } from 'firebase/database';
 import firebase from './firebase';
 import ComputerCard from './ComputerCard';
 import PlayerCard from './PlayerCard';
@@ -19,6 +19,7 @@ const Game = (props) => {
     const [ displayCompStats, setDisplayCompStats ] = useState(false);
     const [ player, setPlayer ] = useState("");
     const [ recentPlayers, setRecentPlayers ] = useState([])
+    const [ phrase, setPhrase ] = useState("You'll never take me alive");
 
     const establishGame = () => {
         setPlayer(props.name)
@@ -33,6 +34,27 @@ const Game = (props) => {
         }
         return array;
     };
+
+    const randomize = (array) => {
+        const randomIndex = Math.floor(Math.random() * array.length);
+        const item = array[randomIndex];
+        return item;
+    }
+
+    const phrases = [
+        "You'll never take me alive",
+        "Watch your back",
+        "You won't see this one coming",
+        "Don't test me",
+        "You won't like me when I'm angry",
+        "I can do this all day",
+        "We're in the endgame now",
+        "I'll do whatever it takes to beat you",
+        "I wouldn't underestimate me if I were you",
+        "Stay out of my way",
+        "I'm the best there is at what I do",
+        "It's clobberin' time"
+    ]
 
     const database = getDatabase(firebase);
     const dbRef = ref(database, `/players`);
@@ -82,6 +104,9 @@ const Game = (props) => {
     const checkStats = (event) => {
         event.preventDefault();
 
+        let randomPhrase = randomize(phrases);
+        setPhrase(randomPhrase);
+
         if (statChoice){
             const playerStat = playerDeck[0].data[statChoice];
             const computerStat = computerDeck[0].data[statChoice];
@@ -107,7 +132,6 @@ const Game = (props) => {
         } else {
             alert('Please make a selection');
         }
-
     }
 
     const nextTurn = () => {
@@ -167,8 +191,9 @@ const Game = (props) => {
                 : null
             }
             {
-                turnState === 1
+                turnState === 1 && playerDeck[0] && computerDeck[0]
                 ? <div className="gameArea">
+                    <p className="phrase">"{phrase}, {computerDeck[0].data.name}."</p>
                     <h4>V.S.</h4>
                     <form>
                         <label htmlFor="statistics">Select the statistic that you think will beat your opponent:</label>
