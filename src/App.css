@@ -67,8 +67,9 @@ main {
   width: 90%;
   padding: 10px;
   font-size: 15px;
-  border: solid #ff1616 2px;
+  border: solid #000 2px;
   border-radius: 10px;
+  transition: box-shadow 0.5s;
 }
 
 .startScreen button {
@@ -116,8 +117,9 @@ main {
   width: 100%;
   padding: 5px 10px;
   font-size: 15px;
-  border: solid #ff1616 2px;
+  border: solid #000 2px;
   border-radius: 10px;
+  transition: box-shadow 0.5s;
 }
 
 .gameArea form select:hover {
@@ -135,7 +137,7 @@ main {
 
 .gameOver {
   padding: 30px 0px;
-  width: 50%;
+  width: 500px;
 }
 
 .gameOver h3 {
@@ -149,14 +151,17 @@ main {
 }
 
 .gameOver ol {
-  color: #fff;
-  background-color: #ff1616;
+  background-color: #fff;
+  border: solid #000 3px;
+  box-shadow: 6px 6px #ff1616;
   border-radius: 10px;
   padding: 20px 0px;
   margin: 20px 0px;
+  padding-left: 60px;
 }
 
 .gameOver ol li {
+  text-align: left;
   font-size: 25px;
 }
 
@@ -171,7 +176,6 @@ main {
 
 .button:hover {
   cursor: pointer;
-  box-shadow: 5px 5px #ff1616;
 }
 
 .gameArea form button {
@@ -211,7 +215,7 @@ main {
   left: 50%;
   transform: translateX(-50%);
   margin: 0px 0px;
-  width: 100%;
+  width: 105%;
   z-index: 3;
 }
 
@@ -225,14 +229,14 @@ main {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
+  width: 105%;
   animation: fadeIn 0.5s;
   z-index: 3;
 }
 
 .cardStats ul {
   margin: 0;
-  padding: 20px;
+  padding: 25px;
   list-style: none;
   text-align: left;
 }
