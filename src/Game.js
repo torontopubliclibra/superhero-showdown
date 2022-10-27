@@ -192,94 +192,109 @@ const Game = (props) => {
             }
             {
                 turnState === 1 && playerDeck[0] && computerDeck[0]
-                ? <div className="gameArea">
-                    <p className="phrase">"{phrase}, {computerDeck[0].data.name}."</p>
-                    <h4>V.S.</h4>
-                    <form>
-                        <label htmlFor="statistics">Select the statistic that you think will beat your opponent:</label>
-                        <select id="statistics" onChange={handleInputChange}>
-                            <option value="" default>Select a statistic:</option>
-                            <option value="int" default>Intelligence</option>
-                            <option value="str">Strength</option>
-                            <option value="spd">Speed</option>
-                            <option value="dur">Durability</option>
-                            <option value="fig">Fighting</option>
-                        </select>
-                        <button className="button" onClick={checkStats}>Submit</button>
-                    </form>
-                    {
-                        pot.length > 0
-                        ? <p className="pot">Pot: {pot.length}</p>
-                        : null
-                    }
-                </div>
+                ? <>
+                    <div className="gameText">
+                        <h4>V.S.</h4>
+                        <p className="phrase">{computerDeck[0].data.name} says "{phrase}, {playerDeck[0].data.name}."</p>
+                    </div>
+                    <div className="gameArea">
+                        <form>
+                            <label htmlFor="statistics">Select the statistic that you think will beat your opponent:</label>
+                            <select id="statistics" onChange={handleInputChange}>
+                                <option value="" default>Select a statistic:</option>
+                                <option value="int" default>Intelligence</option>
+                                <option value="str">Strength</option>
+                                <option value="spd">Speed</option>
+                                <option value="dur">Durability</option>
+                                <option value="fig">Fighting</option>
+                            </select>
+                            <button className="button" onClick={checkStats}>Submit</button>
+                        </form>
+                        {
+                            pot.length > 0
+                            ? <p className="pot">Pot: {pot.length}</p>
+                            : null
+                        }
+                    </div>
+                </>
                 : null
             }
             {    turnState === 2
             
-                ? <div className="gameArea">
-                    <h4>YOU WIN</h4>
-                    <p>{playerDeck[0].data.name} beat {computerDeck[0].data.name}!</p>
-                    <p>The card {
-                            pot.length > 0
-                            ? `and the entire pot `
-                            : ``
+                ? <>
+                    <div className="gameText">
+                        <h4>YOU WIN</h4>
+                    </div>
+                    <div className="gameArea">
+                        <p>{playerDeck[0].data.name} beat {computerDeck[0].data.name}!</p>
+                        <p>The card {
+                                pot.length > 0
+                                ? `and the entire pot `
+                                : ``
+                            }
+                            will be added to your deck.</p>
+                        {
+                            !gameOver
+                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                            : <button className="button" onClick={endGame}>End Game</button>
                         }
-                        will be added to your deck.</p>
-                    {
-                        !gameOver
-                        ? <button className="button" onClick={nextTurn}>Next Turn</button>
-                        : <button className="button" onClick={endGame}>End Game</button>
-                    }
-                    {
-                        pot.length > 0
-                        ? <p className="pot">Pot: {pot.length}</p>
-                        : null
-                    }
-                </div>
+                        {
+                            pot.length > 0
+                            ? <p className="pot">Pot: {pot.length}</p>
+                            : null
+                        }
+                    </div>
+                </>
                 : null
             }
             {
                 turnState === 3
-                ? <div className="gameArea">
-                    <h4>YOU TIE</h4>
-                    <p>{playerDeck[0].data.name} tied with {computerDeck[0].data.name}!</p>
-                    <p>Both cards will be added to the pot.</p>
-                    {
-                        !gameOver
-                        ? <button className="button" onClick={nextTurn}>Next Turn</button>
-                        : <button className="button" onClick={endGame}>End Game</button>
-                    }
-                    {
-                        pot.length > 0
-                        ? <p className="pot">Pot: {pot.length}</p>
-                        : null
-                    }
-                </div>
+                ? <>
+                    <div className="gameText">
+                        <h4>YOU TIE</h4>
+                    </div>
+                    <div className="gameArea">
+                        <p>{playerDeck[0].data.name} tied with {computerDeck[0].data.name}! Both cards will be added to the pot.</p>
+                        {
+                            !gameOver
+                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                            : <button className="button" onClick={endGame}>End Game</button>
+                        }
+                        {
+                            pot.length > 0
+                            ? <p className="pot">Pot: {pot.length}</p>
+                            : null
+                        }
+                    </div>
+                </>
                 : null
             }
             {
                 turnState === 4
-                ? <div className="gameArea">
-                    <h4>YOU LOSE</h4>
-                    <p>{computerDeck[0].data.name} beat {playerDeck[0].data.name}!</p>
-                    <p>Your card {
-                            pot.length > 0
-                            ? `and the entire pot `
-                            : ``
+                ? <>
+                    <div className="gameText">
+                        <h4>YOU LOSE</h4>
+                    </div>
+                    <div className="gameArea">
+                        <p>{computerDeck[0].data.name} beat {playerDeck[0].data.name}!</p>
+                        <p>Your card {
+                                pot.length > 0
+                                ? `and the entire pot `
+                                : ``
+                            }
+                            will be added to your opponent's deck.</p>
+                        {
+                            !gameOver
+                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                            : <button className="button" onClick={endGame}>End Game</button>
                         }
-                        will be added to your opponent's deck.</p>
-                    {
-                        !gameOver
-                        ? <button className="button" onClick={nextTurn}>Next Turn</button>
-                        : <button className="button" onClick={endGame}>End Game</button>
-                    }
-                    {
-                        pot.length > 0
-                        ? <p className="pot">Pot: {pot.length}</p>
-                        : null
-                    }
-                </div>
+                        {
+                            pot.length > 0
+                            ? <p className="pot">Pot: {pot.length}</p>
+                            : null
+                        }
+                    </div>
+                </>
                 : null
             }
             {

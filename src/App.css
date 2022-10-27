@@ -45,6 +45,7 @@ main {
   border-radius: 40px;
   display: flex;
   width: 90%;
+  max-width: 1400px;
   margin: 0 auto;
   align-items: center;
   justify-content: center;
@@ -82,19 +83,38 @@ main {
 }
 
 .game {
+  position: relative;
   display: flex;
   width: 100%;
   justify-content: center;
   animation: fadeIn 0.5s;
 }
 
+.gameText {
+  position: absolute;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25%;
+}
+
 .gameArea {
-  align-self: center;
-  width: 20%;
+  align-self: flex-end;
+  height: 80%;
+  width: 25%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   padding: 0 40px;
+  padding-bottom: 75px;
+}
+
+.gameArea p {
+  margin: 10px 0px;
+}
+
+.gameArea button {
+  margin: 10px 0px;
 }
 
 .gameArea form {
@@ -105,11 +125,11 @@ main {
   margin: 0 auto;
 }
 
-.gameArea h4 {
-  font-size: 40px;
+.gameText h4 {
+  font-size: 60px;
   color: #ff1616;
   text-shadow: 3px 3px 2px #000;
-  margin: 15px 0;
+  margin: 0 auto;
 }
 
 .gameArea form label,
@@ -132,27 +152,30 @@ main {
 }
 
 .pot {
-  background-color: #38b6ff;
-  width: 40%;
-  margin: 10px auto;
+  background-color: #fff;
+  width: 95%;
+  margin: 0 auto;
   padding: 10px;
-  border: solid #ff1616 2px;
+  border: solid #000 2px;
   border-radius: 10px;
 }
 
 .gameOver {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 30px 0px;
   width: 500px;
 }
 
 .gameOver h3 {
   font-size: 30px;
-  margin: 10px;
+  margin: 15px;
 }
 
 .gameOver h4 {
   font-size: 25px;
-  margin: 25px;
+  margin: 15px;
 }
 
 .gameOver ol {
@@ -168,6 +191,10 @@ main {
 .gameOver ol li {
   text-align: left;
   font-size: 25px;
+}
+
+.gameOver button {
+  margin: 20px 0px;
 }
 
 .button {
@@ -274,23 +301,114 @@ footer p a:hover {
   color: #ff1616;
 }
 
-@media screen and (max-width: 768px) {
-  main {
-    min-height: 550px;
+@media screen and (max-width: 1500px){
+  .phrase {
+      display: none;
+    }
+}
+
+@media screen and (max-width: 1200px){
+  .game {
+      flex-flow: row wrap;
+      gap: 5%;
+    }
+  .playerHand {
+    order: 1;
+    width: 40%;
+  }
+  .computerHand {
+    order: 2;
+    width: 40%;
+  }
+  .gameText {
+    position: initial;
+    order: 3;
+    width: 100%;
+    transform: translateX(0%);
+    margin: 10px 0px;
+  }
+  .gameArea {
+    order: 4;
+    width: 100%;
+  }
+  .playerCard img,
+  .computerCard img {
+    width: 40%;
+  }
+
+  .playerCard img {
+    float: left;
+  }
+
+  .computerCard img {
+    float: right;
+  }
+
+  .cardTitle,
+  .cardStats {
+    transform: translateX(0);
+    width: 60%;
+  }
+
+  .cardTitle {
     height: 100%;
+  }
+
+  .cardTitle p {
+    text-align: center;
+    height: 100%;
+    width: auto;
+    margin: 0;
+  }
+
+  .cardTitle p,
+  .cardStats ul {
+    opacity: 1 !important;
+    padding: 15px !important;
+  }
+
+  .cardStats ul {
+    background-color: initial !important;
+  }
+
+  .playerCard .cardTitle,
+  .playerCard .cardStats {
+    left: 40%;
+  }
+
+  .computerCard .cardTitle,
+  .computerCard .cardStats {
+    left: 0%;
+  }
+
+  .gameArea {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 3.5vw;
+  }
+  main {
+    min-height: 300px;
+    height: 100%;
+    padding: 15px 0px;
   }
   header {
     padding: 20px;
   }
   header h1 {
-    font-size: 10vw;
-    padding: 5px;
+    font-size: 11vw;
   }
   header h2 {
     font-size: 5vw;
   }
+  .button {
+    font-size: 3.5vw;
+  }
   .startScreen {
-    height: 40vh;
+    height: 300px;
   }
   .startScreen input {
     width: 60%;
@@ -301,11 +419,29 @@ footer p a:hover {
   .game {
     flex-direction: column;
   }
+  .gameText {
+    width: 100%;
+  }
   .gameArea {
     flex-flow: row wrap;
-  }
-  .gameArea h4 {
     margin: 0 auto;
+    padding: 20px;
+  }
+  .gameArea .pot {
+    order: -1;
+  }
+  .gameText h4 {
+    font-size: 12vw;
+    padding: 20px 0px;
+    margin: 10px 10px 0px 10px;
+  }
+  .gameArea p {
+    width: 100%;
+    margin: 3px auto;
+  }
+  .gameArea button {
+    width: 100%;
+    margin: 10px auto;
   }
   .gameArea form {
     flex-flow: row wrap;
@@ -313,53 +449,58 @@ footer p a:hover {
     gap: 2%;
   }
   .gameArea form label {
+    font-size: 3.5vw;
     width: 100%;
   }
   .gameArea form select {
     width: 60%;
-    padding: 13px;
+    font-size: 3.5vw;
+    padding: 10px;
   }
   .gameArea form button {
     width: 38%;
-  }
-  .phrase {
-    display: none;
   }
   .gameArea, .playerHand, .computerHand {
     width: 80%;
     margin: 0 auto;
   }
-  .playerCard img, .computerCard img {
-    width: 40%;
+  .playerHand, .computerHand {
+    display: flex;
+    flex-flow: row wrap;
   }
-  .playerCard img {
-    float: left;
+  .playerHand h3, .computerHand h3{
+    order: 1;
+    width: 70%;
+    text-align: left;
+    font-size: 3vw;
+    margin: 10px 0px;
   }
-  .computerCard img {
-    float: right;
+  .playerHand p, .computerHand p {
+    order: 2;
+    text-align: right;
+    font-size: 3vw;
+    margin: 0;
   }
-  .cardTitle, .cardStats {
-    transform: translateX(0);
-    width: 60%;
-  }
-  .cardTitle {
-    height: 100%;
+  .playerHand div.playerCard, .computerHand div.computerCard {
+    order: 3;
   }
   .cardTitle p {
-    height: 100%;
     font-size: 3vw;
   }
-  .cardTitle p, .cardStats ul {
-    opacity: 1 !important;
-    padding: 20px !important;
-  }
   .cardStats ul {
-    font-size: 2.5vw;
+    font-size: 3vw;
   }
-  .playerCard .cardTitle, .playerCard .cardStats {
-    left: 40%;
+  .gameOver {
+    width: 80%;
+    margin: 40px auto;
   }
-  .computerCard .cardTitle, .computerCard .cardStats {
-    left: 0%;
+  .gameOver h3 {
+    font-size: 7vw;
+  }
+  .gameOver h4 {
+    font-size: 6vw;
+  }
+  .gameOver p {
+    font-size: 4vw;
   }
 }
