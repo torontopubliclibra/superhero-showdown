@@ -2,7 +2,8 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #38b6ff;
+  background-color: #a3cef1;
+  background: repeating-linear-gradient(135deg, #fff 0, #fff 5%, #a3cef1 0, #a3cef1 50%) 0 / 10px 10px;
   font-size: 18px;
 }
 

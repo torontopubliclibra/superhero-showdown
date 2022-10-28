@@ -18,29 +18,7 @@ const Game = (props) => {
     const [ gameOver, setGameOver ] = useState(false);
     const [ displayCompStats, setDisplayCompStats ] = useState(false);
     const [ player, setPlayer ] = useState("");
-    const [ recentPlayers, setRecentPlayers ] = useState([])
-    const [ phrase, setPhrase ] = useState("You'll never take me alive");
-
-    const randomize = (array) => {
-        const randomIndex = Math.floor(Math.random() * array.length);
-        const item = array[randomIndex];
-        return item;
-    }
-
-    const phrases = [
-        "You'll never take me alive",
-        "Watch your back",
-        "You won't see this one coming",
-        "Don't test me",
-        "You won't like me when I'm angry",
-        "I can do this all day",
-        "We're in the endgame now",
-        "I'll do whatever it takes to beat you",
-        "I wouldn't underestimate me if I were you",
-        "Stay out of my way",
-        "I'm the best there is at what I do",
-        "It's clobberin' time"
-    ]
+    const [ recentPlayers, setRecentPlayers ] = useState([]);
 
     useEffect(() => {
 
@@ -84,9 +62,6 @@ const Game = (props) => {
 
     const checkStats = (event) => {
         event.preventDefault();
-
-        let randomPhrase = randomize(phrases);
-        setPhrase(randomPhrase);
 
         if (statChoice){
             const playerStat = playerDeck[0].data[statChoice];
@@ -181,20 +156,19 @@ const Game = (props) => {
                 ? <>
                     <div className="gameText">
                         <h4>VERSUS</h4>
-                        <p className="phrase">{computerDeck[0].data.name} says "{phrase}, {playerDeck[0].data.name}."</p>
                     </div>
                     <div className="gameArea">
                         <form>
-                            <label htmlFor="statistics">Select the statistic that you think will beat your opponent:</label>
+                            <label htmlFor="statistics">Pick the statistic that you think will beat your opponent:</label>
                             <select id="statistics" onChange={handleInputChange}>
-                                <option value="" default>Select a statistic:</option>
+                                <option value="" default>Select a stat:</option>
                                 <option value="int" default>Intelligence</option>
                                 <option value="str">Strength</option>
                                 <option value="spd">Speed</option>
                                 <option value="dur">Durability</option>
                                 <option value="fig">Fighting</option>
                             </select>
-                            <button className="button" onClick={checkStats}>Submit</button>
+                            <button className="button" onClick={checkStats}>Fight</button>
                         </form>
                         {
                             pot.length > 0
