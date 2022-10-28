@@ -124,6 +124,10 @@ const Game = (props) => {
         const database = getDatabase(firebase);
         const dbRef = ref(database, `/players`);
 
+        if(gameOver && playerDeck.length > 1){
+            push(dbRef, player);
+        }
+
         onValue(dbRef, (response) => {
             const allPlayers = [];
             const playerNames = response.val();
@@ -137,11 +141,6 @@ const Game = (props) => {
 
             setRecentPlayers(newRecentPlayers);
         })
-
-        
-        if(gameOver && playerDeck.length > 1){
-            push(dbRef, player);
-        }
     }
 
     return (
