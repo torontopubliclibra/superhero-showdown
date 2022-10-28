@@ -1,3 +1,4 @@
+/* global App component styles */
 .App {
   font-family: 'Lexend', sans-serif;
   text-align: center;
@@ -5,6 +6,7 @@
   animation: fadeIn 0.5s;
 }
 
+/* fade in animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -14,6 +16,7 @@
   }
 }
 
+/* fade out animation */
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -23,11 +26,13 @@
   }
 }
 
+/* wrapper width and horizontal center */
 .wrapper {
   max-width: 90%;
   margin: 0 auto;
 }
 
+/* header styles */
 header {
   padding: 40px;
 }
@@ -52,6 +57,7 @@ header h2 {
   color: #000;
 }
 
+/* main styles */
 main {
   background-color: #f6bd60c7;
   border: solid #c1121f 5px;
@@ -65,6 +71,7 @@ main {
   justify-content: center;
 }
 
+/* start screen styles */
 .startScreen {
   display: flex;
   flex-direction: column;
@@ -108,6 +115,7 @@ main {
   width: 60%;
 }
 
+/* game styles */
 .game {
   position: relative;
   display: flex;
@@ -192,6 +200,7 @@ main {
   order: -1;
 }
 
+/* game over screen styles */
 .gameOver {
   display: flex;
   flex-direction: column;
@@ -231,6 +240,7 @@ main {
   margin: 20px 0px;
 }
 
+/* input, select, and button styles */
 .button {
   color: #000;
   border-radius: 10px;
@@ -267,11 +277,11 @@ select {
 select:hover, select:focus {
   background-color: rgba(255, 255, 255, 1);
 }
-
 .gameArea form button {
   width: 70%;
 }
 
+/* player and comptuer hand styles */
 .playerHand,
 .computerHand {
   width: 25%;
@@ -375,6 +385,7 @@ select:hover, select:focus {
   margin-top: 35px;
 }
 
+/* footer styles */
 footer {
   padding: 25px 0px;
 }
@@ -386,7 +397,11 @@ footer p a:hover {
   color: #c1121f;
 }
 
+
+/* medium sized screens */
 @media screen and (max-width: 1200px){
+
+  /* game styles */
   .game {
     position: relative;
     flex-flow: row wrap;
@@ -394,6 +409,21 @@ footer p a:hover {
     width: 100%;
     z-index: 10;
   }
+
+  .gameText {
+    position: initial;
+    order: 2;
+    width: 100%;
+    transform: translateX(0%);
+    padding-top: 10px;
+    margin: 30px 0px 10px 0px;
+  }
+
+  .gameArea {
+    width: 75%;
+  }
+
+  /* player and computer hand styles */
   .playerHand {
     order: 1;
     width: 90%;
@@ -426,14 +456,6 @@ footer p a:hover {
   }
   .stackCard {
     display: none;
-  }
-  .gameText {
-    position: initial;
-    order: 2;
-    width: 100%;
-    transform: translateX(0%);
-    padding-top: 10px;
-    margin: 30px 0px 10px 0px;
   }
   .computerHand {
     order: 3;
@@ -565,21 +587,24 @@ footer p a:hover {
   .computerCard .cardStats {
     left: -5%;
   }
-
-  .gameArea {
-    width: 75%;
-  }
 }
 
+/* small screens */
 @media screen and (max-width: 768px) {
+
+  /* global font size */
   body {
     font-size: 3.5vw;
   }
+
+  /* main styles */
   main {
     min-height: 300px;
     height: 100%;
     padding: 15px 0px;
   }
+
+  /* header styles */
   header {
     padding: 20px;
   }
@@ -589,6 +614,8 @@ footer p a:hover {
   header h2 {
     font-size: 6vw;
   }
+
+  /* button, input, and select styles */
   .button {
     font-size: 3.5vw;
   }
@@ -598,6 +625,8 @@ footer p a:hover {
   .startScreen button {
     width: 40%;
   }
+
+  /* game styles */
   .game {
     flex-direction: column;
   }
@@ -607,41 +636,41 @@ footer p a:hover {
     padding: 0;
     margin-top: 20px !important;
   }
-  .playerHand {
-    margin-left: 6vw !important;
-  }
-  .computerHand{
-    order: 3;
-    margin-right: 6vw !important;
-  }
   .gameArea {
     flex-flow: row wrap;
     margin: 0 auto;
     padding: 20px;
   }
+
   .gameArea .pot {
     order: -1;
   }
+
   .gameText h4 {
     font-size: 12vw;
     line-height: 1;
     padding: 0;
   }
+
   .gameArea p {
     width: 100%;
     margin: 3px auto;
   }
+
   .gameArea button {
     width: 100%;
     margin: 10px auto;
   }
+
   .gameArea form {
     flex-flow: row wrap;
   }
+
   .gameArea form label {
     font-size: 3.5vw;
     width: 100%;
   }
+
   .gameArea form select {
     width: 100%;
     font-size: 3.5vw;
@@ -649,8 +678,18 @@ footer p a:hover {
     padding: 10px;
     margin-bottom: 0;
   }
+
   .gameArea form button {
     width: 100%;
+  }
+
+  /* player and computer hand styles */
+  .playerHand {
+    margin-left: 6vw !important;
+  }
+  .computerHand{
+    order: 3;
+    margin-right: 6vw !important;
   }
   .gameArea, .playerHand, .computerHand {
     width: 80%;
@@ -732,6 +771,8 @@ footer p a:hover {
   .deckCard {
     display: none;
   }
+
+  /* game over screen styles */
   .gameOver {
     width: 80%;
     margin: 0 auto;

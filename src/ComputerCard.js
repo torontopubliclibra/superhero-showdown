@@ -1,5 +1,7 @@
+// ComputerCard component (passed props.card and props.displayStats from Game component)
 const ComputerCard = (props) => {
 
+    // initial card value variables
     let name = "";
     let img = "";
     let alt = "";
@@ -12,40 +14,59 @@ const ComputerCard = (props) => {
     let fig = 0;
     let color = `#000`;
 
+    // if there is a card
     if(props.card){
+
+        // populate the known variables with the data
         name = props.card.data.name;
         img = props.card.data.img;
         alt = `Illustration of ` + props.card.data.name;
         url = props.card.data.url;
-        if (props.card.data.aka){
-            aka = `(` + props.card.data.aka + `)`;
-        }
         int = props.card.data.int;
         str = props.card.data.str;
         spd = props.card.data.spd;
         dur = props.card.data.dur;
         fig = props.card.data.fig;
         color = props.card.data.color;
+
+        // if there is a pseudonym
+        if (props.card.data.aka){
+
+            // populate that variable as well
+            aka = `(` + props.card.data.aka + `)`;
+        }
     }
 
+    // set the card styles to have the character's given colour
     let cardStyles = {
         backgroundColor: color,
         opacity: 0.9
     }
     
+    // ComputerCard component return
     return (
         <div className="computerCard">
+
             <div className="cardTitle">
                 <p style= {cardStyles} ><a href={url} target="_blank" rel="noreferrer">{name}</a><br/>
                 {
+                    // if there is a pseudonym
                     aka
+
+                    // display it
                     ? aka
                     : null
                 }
-                </p></div>
+                </p>
+            </div> {/* .cardTitle end */}
+
             <img src={img} alt={alt}/>
+
             {
+                // if the player isn't making a choice
                 props.displayStats
+
+                // display the stats
                 ? <div className="cardStats">
                     <ul className="stats" style= {cardStyles} >
                         <li>Intelligence: {int}</li>
@@ -54,11 +75,16 @@ const ComputerCard = (props) => {
                         <li>Durability: {dur}</li>
                         <li>Fighting: {fig}</li>
                     </ul>
-                </div>
+                </div> // .cardStats end
+
+                // else don't
                 : null
             }
-        </div>
+
+        </div> // .computerCard end
+
     )
 }
 
+// export ComputerCard
 export default ComputerCard;
