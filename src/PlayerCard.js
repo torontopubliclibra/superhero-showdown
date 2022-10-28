@@ -30,13 +30,13 @@ const PlayerCard = (props) => {
 
     let cardStyles = {
         backgroundColor: color,
-        opacity: 0.8
+        opacity: 0.9
     }
 
     return (
         <div className="playerCard">
             <div className="cardTitle">
-                <p style= {cardStyles} ><a href={url} target="_blank">{name}</a><br/>
+                <p style= {cardStyles} ><a href={url} target="_blank" rel="noreferrer">{name}</a><br/>
                 {
                     aka
                     ? aka

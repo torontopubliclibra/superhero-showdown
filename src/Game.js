@@ -147,7 +147,29 @@ const Game = (props) => {
                 ? <div className="playerHand">
                     <h3>Your Card</h3>
                     <PlayerCard card={playerDeck[0]}/>
-                    <p className="deck">Deck: {playerDeck.length}</p>
+                    {
+                        playerDeck.length >= 3
+                            ? <div className="stackCard stackCard1"></div>
+                            : null
+                    }
+                    {
+                        playerDeck.length >= 2
+                            ? <div className="stackCard stackCard2"></div>
+                            : null
+                    }
+                    <div className="deck">
+                        <p>Deck: {playerDeck.length}</p>
+                        {
+                            playerDeck.length >= 3
+                                ? <div className="deckCard deckCard1"></div>
+                                : null
+                        }
+                        {
+                            playerDeck.length >= 2
+                                ? <div className="deckCard deckCard2"></div>
+                                : null
+                        }
+                    </div>
                 </div>
                 : null
             }
@@ -155,13 +177,13 @@ const Game = (props) => {
                 turnState === 1 && playerDeck[0] && computerDeck[0]
                 ? <>
                     <div className="gameText">
-                        <h4>VERSUS</h4>
+                        <h4>v.s.</h4>
                     </div>
                     <div className="gameArea">
                         <form>
-                            <label htmlFor="statistics">Pick the statistic that you think will beat your opponent:</label>
+                            <label htmlFor="statistics">Pick the stat that you think will beat your opponent:</label>
                             <select id="statistics" onChange={handleInputChange}>
-                                <option value="" default>Select a stat:</option>
+                                <option value="" default>Select a statistic:</option>
                                 <option value="int" default>Intelligence</option>
                                 <option value="str">Strength</option>
                                 <option value="spd">Speed</option>
@@ -183,7 +205,7 @@ const Game = (props) => {
             
                 ? <>
                     <div className="gameText">
-                        <h4>YOU WIN</h4>
+                        <h4>You Win</h4>
                     </div>
                     <div className="gameArea">
                         <p>{playerDeck[0].data.name} beat {computerDeck[0].data.name}! The card {
@@ -210,7 +232,7 @@ const Game = (props) => {
                 turnState === 3
                 ? <>
                     <div className="gameText">
-                        <h4>YOU TIE</h4>
+                        <h4>You Tie</h4>
                     </div>
                     <div className="gameArea">
                         <p>{playerDeck[0].data.name} tied with {computerDeck[0].data.name}! Both cards will be added to the pot.</p>
@@ -232,7 +254,7 @@ const Game = (props) => {
                 turnState === 4
                 ? <>
                     <div className="gameText">
-                        <h4>YOU LOSE</h4>
+                        <h4>You Lose</h4>
                     </div>
                     <div className="gameArea">
                         <p>{computerDeck[0].data.name} beat {playerDeck[0].data.name}! Your card {
@@ -260,7 +282,29 @@ const Game = (props) => {
                 ? <div className="computerHand">
                     <h3>Your Opponent's Card</h3>
                     <ComputerCard displayStats={displayCompStats} card={computerDeck[0]}/>
-                    <p  className="deck">Deck: {computerDeck.length}</p>
+                    {
+                        computerDeck.length >= 3
+                            ? <div className="stackCard stackCard1"></div>
+                            : null
+                    }
+                    {
+                        computerDeck.length >= 2
+                            ? <div className="stackCard stackCard2"></div>
+                            : null
+                    }
+                    <div className="deck">
+                        <p>Deck: {computerDeck.length}</p>
+                        {
+                            computerDeck.length >= 3
+                                ? <div className="deckCard deckCard1"></div>
+                                : null
+                        }
+                        {
+                            computerDeck.length >= 2
+                                ? <div className="deckCard deckCard2"></div>
+                                : null
+                        }
+                    </div>
                 </div>
                 : null
             }

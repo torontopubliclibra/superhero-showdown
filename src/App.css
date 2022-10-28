@@ -14,6 +14,15 @@
   }
 }
 
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .wrapper {
   max-width: 90%;
   margin: 0 auto;
@@ -24,14 +33,15 @@ header {
 }
 
 header h1 {
-  font-family: 'Anton', sans-serif;
+  font-family: 'Fugaz One', sans-serif;
   font-size: 75px;
-  line-height: 1.3;
+  line-height: 1.1;
   margin: 0;
   padding: 10px 0px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #000;
+  color: #c1121f;
+  text-shadow: #000 -3px 3px 3px;
 }
 
 header h2 {
@@ -43,13 +53,14 @@ header h2 {
 }
 
 main {
-  background-color: #d9d9d9;
+  background-color: #f6bd60c7;
   border: solid #c1121f 5px;
   border-radius: 40px;
   display: flex;
   width: 90%;
   max-width: 1400px;
   margin: 0 auto;
+  padding-right: 20px;
   align-items: center;
   justify-content: center;
 }
@@ -70,15 +81,27 @@ main {
 
 .startScreen label {
   font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 .startScreen input {
-  background-color: #fff;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.5);
   width: 90%;
   padding: 10px;
-  font-size: 15px;
-  border: solid #000 3px;
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border: solid #c1121f 3px;
   border-radius: 10px;
+  transition: background-color 0.2s;
+  text-transform: uppercase;
+}
+
+.startScreen input:active, .startScreen input:focus, .startScreen input:hover {
+  background-color: #fff;
 }
 
 .startScreen button {
@@ -110,6 +133,7 @@ main {
   gap: 10px;
   padding: 0 40px;
   padding-bottom: 50px;
+  padding-left: 65px;
 }
 
 .gameArea p {
@@ -129,10 +153,11 @@ main {
 }
 
 .gameText h4 {
-  font-family: 'Anton', sans-serif;
-  font-size: 68px;
-  color: #000;
+  font-family: 'Fugaz One', sans-serif;
+  font-size: 45px;
+  text-transform: uppercase;
   margin: 0 auto;
+  padding-left: 25px;
 }
 
 .gameArea form label,
@@ -142,12 +167,12 @@ main {
 }
 
 .gameArea form select {
-  background-color: #fff;
   width: 100%;
-  padding: 5px 10px;
-  font-size: 15px;
-  border: solid #000 3px;
+  padding: 10px 10px;
+  font-size: 17px;
+  border: solid #c1121f 3px;
   border-radius: 10px;
+  text-transform: uppercase;
 }
 
 .gameArea form select:hover {
@@ -155,12 +180,14 @@ main {
 }
 
 .pot {
-  color: #000;
-  background-color: #fff;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #c1121ed6;
+  letter-spacing: 0.1em;
   width: 90%;
   margin: 0 auto;
   padding: 10px;
-  border: solid #c1121f 3px;
+  border: solid #000 3px;
   border-radius: 10px;
   order: -1;
 }
@@ -174,6 +201,7 @@ main {
 }
 
 .gameOver h3 {
+  font-family: 'Fugaz One', sans-serif;
   font-size: 30px;
   margin: 15px;
 }
@@ -184,7 +212,7 @@ main {
 }
 
 .gameOver ol {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.5);
   border: solid #c1121f 3px;
   border-radius: 10px;
   padding: 20px 0px;
@@ -193,6 +221,7 @@ main {
 }
 
 .gameOver ol li {
+  text-transform: uppercase;
   text-align: left;
   font-size: 25px;
 }
@@ -202,16 +231,40 @@ main {
 }
 
 .button {
+  color: #000;
   border-radius: 10px;
   padding: 10px;
   font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   background-color: #fff;
-  border: solid #000 3px;
+  border: solid #c1121f 3px;
+  background-color: #fff;
+  transition: box-shadow 0.3s;
 }
 
-.button:hover {
+.button:hover, .button:focus {
   cursor: pointer;
-  transform: scale(0.95);
+  box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 3px,
+    rgba(0, 0, 0, 0.5) -3px 3px 3px;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-overflow: '';
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  background: url("../public/select-down.png") no-repeat right #fff;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-position: 95%;
+  background-size: 20px;
+  transition: background-color 0.4s;
+}
+
+select:hover, select:focus {
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .gameArea form button {
@@ -230,10 +283,31 @@ main {
   width: 100%;
   position: relative;
   color: #fff;
-  animation: fadeIn 0.5s;
+  background-color: #fff;
   overflow: hidden;
-  z-index: 0;
+  z-index: 4;
   border: solid #000 4px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.5) 4px 4px 4px;
+}
+
+.stackCard {
+  width: 25%;
+  margin-top: -37%;
+  margin-left: 1%;
+  aspect-ratio: 3/4.5;
+  background-color: #7e7e7e;
+  border: solid #000 4px;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 3;
+  box-shadow: rgba(0, 0, 0, 0.5) 4px 4px 4px;
+}
+
+.stackCard2 {
+  margin-top: -36%;
+  margin-left: 2%;
+  z-index: 0;
 }
 
 .playerCard img,
@@ -253,11 +327,21 @@ main {
   margin: 0px 0px;
   width: 105%;
   z-index: 3;
+  border-bottom: solid #000 4px;
+}
+
+.playerCard .cardTitle {
+  border-left: solid #000 4px;
+}
+
+.computerCard .cardTitle {
+  border-right: solid #000 4px;
 }
 
 .cardTitle p {
   margin: 0;
   padding: 10px;
+  font-weight: 600;
 }
 
 .cardTitle p a {
@@ -272,6 +356,7 @@ main {
   width: 105%;
   animation: fadeIn 0.5s;
   z-index: 3;
+  border-top: solid #000 4px;
 }
 
 .cardStats ul {
@@ -283,6 +368,10 @@ main {
 
 .cardStats ul li {
   padding-bottom: 2px;
+}
+
+.deck {
+  margin-top: 35px;
 }
 
 footer {
@@ -332,6 +421,10 @@ footer p a:hover {
   }
   .computerCard {
     order: 4;
+    box-shadow: rgba(0, 0, 0, 0.5) -4px 4px 4px;
+  }
+  .stackCard {
+    display: none;
   }
   .gameText {
     position: initial;
@@ -351,23 +444,58 @@ footer p a:hover {
   .playerCard, .computerCard {
     width: 60%;
   }
-  .playerHand .deck {
+  .playerHand .deck, .playerHand .deckCard {
     border-left: none;
+    border-radius: 0px 10px 10px 0px;
+    box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
   }
-  .computerHand .deck {
+  .computerHand .deck, .computerHand .deckCard {
     border-right: none;
+    border-radius: 10px 0px 0px 10px;
+    box-shadow: rgba(0, 0, 0, 0.5) -2px 2px 2px;
   }
   .deck {
+    color: #000;
     width: 25%;
-    padding: 20px 0px;
+    padding: 7% 0%;
+    margin: 0;
+    margin-bottom: 15px;
     font-size: 25px;
-    background-color: #fff;
+    background-color: #d5d5d5;
     border: solid #000 4px;
+    position: relative;
+  }
+  .deckCard {
+    z-index: -1;
+    height: 100%;
+    width: 105%;
+    position: absolute;
+    top: 4%;
+    left: 0%;
+    background-color: #7e7e7e;
+    border: solid #000 4px;
+  }
+  .playerHand .deckCard1 {
+    width: 110%;
+    top: 8%;
+  }
+  .computerHand .deckCard {
+    left: -7%;
+  }
+  .computerHand .deckCard1 {
+    width: 110%;
+    left: -12%;
+    top: 8%;
   }
   .gameArea {
     order: 4;
     width: 100%;
     padding: 40px;
+  }
+  .gameText {
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding-top: 0;
   }
   .playerCard img,
   .computerCard img {
@@ -385,11 +513,12 @@ footer p a:hover {
   .cardTitle,
   .cardStats {
     transform: translateX(0);
-    width: 60%;
+    width: 62%;
+    border: none;
   }
 
   .cardTitle {
-    height: 100%;
+    height: 100%;;
   }
 
   .cardTitle p {
@@ -400,12 +529,13 @@ footer p a:hover {
 
   .cardTitle p,
   .cardStats ul {
-    opacity: 1 !important;
     padding: 15px !important;
+    opacity: 1 !important;
   }
 
   .cardTitle p {
     font-size: 18px;
+    white-space: nowrap;
   }
 
   .cardStats ul {
@@ -422,6 +552,7 @@ footer p a:hover {
 
   .cardStats ul {
     background-color: initial !important;
+    padding: 18px !important;
   }
 
   .playerCard .cardTitle,
@@ -431,7 +562,7 @@ footer p a:hover {
 
   .computerCard .cardTitle,
   .computerCard .cardStats {
-    left: 0%;
+    left: -5%;
   }
 
   .gameArea {
@@ -452,10 +583,10 @@ footer p a:hover {
     padding: 20px;
   }
   header h1 {
-    font-size: 14vw;
+    font-size: 11vw;
   }
   header h2 {
-    font-size: 6.5vw;
+    font-size: 6vw;
   }
   .button {
     font-size: 3.5vw;
@@ -475,8 +606,12 @@ footer p a:hover {
     padding: 0;
     margin-top: 20px !important;
   }
+  .playerHand {
+    margin-left: 6vw !important;
+  }
   .computerHand{
     order: 3;
+    margin-right: 6vw !important;
   }
   .gameArea {
     flex-flow: row wrap;
@@ -488,8 +623,8 @@ footer p a:hover {
   }
   .gameText h4 {
     font-size: 12vw;
+    line-height: 1;
     padding: 0;
-    margin: 10px 10px 0px 10px;
   }
   .gameArea p {
     width: 100%;
@@ -501,20 +636,20 @@ footer p a:hover {
   }
   .gameArea form {
     flex-flow: row wrap;
-    justify-content: space-between;
-    gap: 2%;
   }
   .gameArea form label {
     font-size: 3.5vw;
     width: 100%;
   }
   .gameArea form select {
-    width: 60%;
+    width: 100%;
     font-size: 3.5vw;
+    background-size: 3.5vw;
     padding: 10px;
+    margin-bottom: 0;
   }
   .gameArea form button {
-    width: 38%;
+    width: 100%;
   }
   .gameArea, .playerHand, .computerHand {
     width: 80%;
@@ -523,6 +658,8 @@ footer p a:hover {
   .playerHand, .computerHand {
     display: flex;
     flex-flow: row wrap;
+    margin-bottom: 4vw;
+    margin-top: 4vw;
   }
   .playerHand .deck, .computerHand .deck {
     order: 2;
@@ -543,6 +680,9 @@ footer p a:hover {
     font-size: 3vw;
     margin: 0;
   }
+  .playerHand .deck p, .computerHand .deck p {
+    text-align: right;
+  }
   .playerHand div.playerCard, .computerHand div.computerCard {
     order: 3;
   }
@@ -550,19 +690,46 @@ footer p a:hover {
   .computerCard {
     width: 100%;
   }
+  .stackCard {
+    display: initial;
+    width: 78%;
+    margin-top: 12%;
+    aspect-ratio: 5/3;
+  }
+  .stackCard2 {
+    margin-top: 14%;
+    z-index: -2;
+  }
+  .playerHand .stackCard {
+    margin-left: 2%;
+    box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 3px;
+  }
+  .playerHand .stackCard2 {
+    margin-left: 4%;
+  }
+  .computerHand .stackCard {
+    margin-right: 2%;
+    box-shadow: rgba(0, 0, 0, 0.5) -3px 3px 3px;
+  }
+  .computerHand .stackCard2 {
+    margin-right: 4%;
+  }
   .cardTitle p {
-    font-size: 3.2vw;
+    font-size: 2.8vw;
   }
   .cardStats ul {
-    font-size: 2.8vw;
+    font-size: 2.6vw;
   }
   .deck {
     padding: 0;
-    background-color: initial;
+    background: none;
     border: none;
     margin: 10px 0px !important;
     width: 30% !important;
-    text-align: right !important;
+    box-shadow: none !important;
+  }
+  .deckCard {
+    display: none;
   }
   .gameOver {
     width: 80%;
@@ -570,10 +737,12 @@ footer p a:hover {
     padding: 0;
   }
   .gameOver h3 {
-    font-size: 7vw;
+    font-size: 8vw;
+    margin-bottom: 0;
   }
   .gameOver h4 {
     font-size: 6vw;
+    margin-top: 0;
   }
   .gameOver p {
     font-size: 4vw;
