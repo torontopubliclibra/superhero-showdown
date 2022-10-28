@@ -22,23 +22,10 @@ const Game = (props) => {
 
     useEffect(() => {
 
-        const database = getDatabase(firebase);
-        const dbRef = ref(database, `/players`);
-
         const playerName = props.name;
         const deck = props.deck;
 
         setPlayer(playerName);
-
-        onValue(dbRef, (response) => {
-            const newRecentPlayers = [];
-            const playerNames = response.val();
-            for (let player in playerNames){
-                newRecentPlayers.push({key: player, name: playerNames[player]})
-            }
-            newRecentPlayers.reverse();
-            setRecentPlayers(newRecentPlayers);
-        })
 
         const deckOne = [];
         const deckTwo = [];
@@ -133,9 +120,26 @@ const Game = (props) => {
 
     const endGame = () => {
         setTurnState(5);
-        if(gameOver === true && playerDeck.length > 1){
-            const database = getDatabase(firebase);
-            const dbRef = ref(database, `/players`);
+
+        const database = getDatabase(firebase);
+        const dbRef = ref(database, `/players`);
+
+        onValue(dbRef, (response) => {
+            const allPlayers = [];
+            const playerNames = response.val();
+
+            for (let player in playerNames){
+                allPlayers.push({key: player, name: playerNames[player]})
+            }
+
+            allPlayers.reverse();
+            let newRecentPlayers = allPlayers.slice(0, 5);
+
+            setRecentPlayers(newRecentPlayers);
+        })
+
+        
+        if(gameOver && playerDeck.length > 1){
             push(dbRef, player);
         }
     }
@@ -319,7 +323,7 @@ const Game = (props) => {
                     }
                     <p>Here are our latest champions:</p>
                     <ol>
-                        { recentPlayers.slice(0, 5).map((player, index) => {
+                        { recentPlayers.map((player) => {
                             return(
                                 <li key={player.key}>{player.name}</li>
                             )

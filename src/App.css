@@ -218,6 +218,7 @@ main {
   padding: 20px 0px;
   margin: 20px 0px;
   padding-left: 60px;
+  overflow: hidden;
 }
 
 .gameOver ol li {
@@ -746,5 +747,8 @@ footer p a:hover {
   }
   .gameOver p {
     font-size: 4vw;
+  }
+  .gameOver ol li {
+    font-size: 4.5vw;
   }
 }
