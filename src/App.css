@@ -401,6 +401,11 @@ footer p a:hover {
 /* medium sized screens */
 @media screen and (max-width: 1200px){
 
+  /* header styles */
+  header h2 {
+      display: none;
+    }
+
   /* game styles */
   .game {
     position: relative;
@@ -422,6 +427,7 @@ footer p a:hover {
   .gameArea {
     width: 75%;
   }
+  
 
   /* player and computer hand styles */
   .playerHand {
@@ -611,9 +617,6 @@ footer p a:hover {
   header h1 {
     font-size: 11vw;
   }
-  header h2 {
-    font-size: 6vw;
-  }
 
   /* button, input, and select styles */
   .button {
@@ -647,7 +650,7 @@ footer p a:hover {
   }
 
   .gameText h4 {
-    font-size: 12vw;
+    font-size: 10vw;
     line-height: 1;
     padding: 0;
   }
@@ -667,8 +670,7 @@ footer p a:hover {
   }
 
   .gameArea form label {
-    font-size: 3.5vw;
-    width: 100%;
+    display: none;
   }
 
   .gameArea form select {
