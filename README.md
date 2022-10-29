@@ -1,4 +1,4 @@
-# Juno WD Bootcamp 44 - Project 2 ("Superhero Showdown")
+# Juno WD Bootcamp 44 - Project 3 ("Superhero Showdown")
 
 ## About
 
