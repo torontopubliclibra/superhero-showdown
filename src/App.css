@@ -38,23 +38,26 @@ header {
 }
 
 header h1 {
-  font-family: 'Fugaz One', sans-serif;
-  font-size: 75px;
-  line-height: 1.1;
   margin: 0;
-  padding: 10px 0px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #c1121f;
-  text-shadow: #000 -3px 3px 3px;
+}
+
+header .logo {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+header .mobile-logo {
+  display: none;
 }
 
 header h2 {
+  font-family: 'Fugaz One', sans-serif;
   font-size: 30px;
   margin: 0;
-  padding: 10px 0px;
   letter-spacing: 0.08em;
   color: #000;
+  text-transform: uppercase;
 }
 
 /* input, select, and button styles */
@@ -125,8 +128,16 @@ footer p a:hover {
   header {
     padding: 20px;
   }
-  header h1 {
-    font-size: 11vw;
+
+  header .logo {
+    display: none;
+  }
+
+  header .mobile-logo {
+    display: initial;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
   }
 
   /* button, input, and select styles */

@@ -14,7 +14,10 @@ function App() {
       <div className="wrapper">
 
         <header>
-          <h1>Superhero Showdown</h1>
+          <h1>
+            <img className="logo" src="./logo.png" alt="Superhero Showdown"/>
+            <img className="mobile-logo" src="./mobile-logo.png" alt="Superhero Showdown"/>
+          </h1>
           <h2>Who will win the war between heroes?</h2>
         </header>
 
