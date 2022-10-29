@@ -1,3 +1,6 @@
+// import styles
+import './Card.css';
+
 // ComputerCard component (passed props.card and props.displayStats from Game component)
 const ComputerCard = (props) => {
 

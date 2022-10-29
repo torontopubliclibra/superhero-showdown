@@ -1,4 +1,4 @@
-/* default body styles and background */
+/* default body styles */
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -8,7 +8,18 @@ body {
   font-size: 18px;
 }
 
+/* default code styles */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* small screens */
+@media screen and (max-width: 768px) {
+
+  /* default body styles */
+  body {
+    font-size: 3.5vw;
+  }
+
 }

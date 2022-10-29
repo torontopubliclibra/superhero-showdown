@@ -1,3 +1,6 @@
+// import styles
+import './Main.css';
+
 // import state functions
 import { useEffect, useState } from 'react';
 

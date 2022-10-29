@@ -1,0 +1,80 @@
+/* Main component styles */
+main {
+    background-color: #f6bd60c7;
+    border: solid #c1121f 5px;
+    border-radius: 40px;
+    display: flex;
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-right: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* start screen styles */
+.startScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px 0px;
+    width: 400px;
+}
+
+.startScreen label,
+.startScreen input,
+.startScreen button {
+    margin: 10px auto;
+}
+
+.startScreen label {
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.startScreen input {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 90%;
+    padding: 10px;
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border: solid #c1121f 3px;
+    border-radius: 10px;
+    transition: background-color 0.2s;
+    text-transform: uppercase;
+}
+
+.startScreen input:active,
+.startScreen input:focus,
+.startScreen input:hover {
+    background-color: #fff;
+}
+
+.startScreen button {
+    width: 60%;
+}
+
+/* small screens */
+@media screen and (max-width: 768px) {
+
+    /* Main component styles */
+    main {
+        min-height: 300px;
+        height: 100%;
+        padding: 15px 0px;
+    }
+
+    /* start screen styles */
+    .startScreen input {
+        width: 60%;
+    }
+
+    .startScreen button {
+        width: 40%;
+    }
+
+}

@@ -1,3 +1,6 @@
+// import styles
+import './Game.css';
+
 // import state functions
 import { useEffect, useState } from 'react';
 

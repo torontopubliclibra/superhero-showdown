@@ -1,3 +1,6 @@
+// import styles
+import './Card.css';
+
 // PlayerCard component (passed props.card from Game component)
 const PlayerCard = (props) => {
 
