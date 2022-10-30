@@ -177,6 +177,14 @@ img.cardLogo {
         right: 0;
     }
 
+    img.cardLogo {
+        margin: 0 auto;
+        position: initial !important;
+        width: 60% !important;
+        object-fit: contain !important;
+        aspect-ratio: 16/9 !important;
+    }
+
     /* card title and statistics styles */
     .cardTitle,
     .cardStats {
