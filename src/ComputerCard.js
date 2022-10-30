@@ -1,13 +1,16 @@
 // import styles
 import './Card.css';
 
+// import state functions
 import { useState, useRef, useEffect } from 'react';
 
+// import transition hook
 import { CSSTransition } from 'react-transition-group';
 
 // ComputerCard component (passed props.card and props.displayStats from Game component)
 const ComputerCard = (props) => {
 
+    // initial stateful variable and ref
     const [ flipIn, setFlipIn ] = useState(false);
     const nodeRef = useRef(null);
 
@@ -53,25 +56,40 @@ const ComputerCard = (props) => {
         opacity: 0.9
     }
 
+    // render side effects when props.card changes
     useEffect(() => {
+
+        // set flip in animation state to true
         setFlipIn(true);
+
+        // after 1 second
         setTimeout(() => {
+
+            // set flip in animation state to false
             setFlipIn(false);
+
         }, 1000)
+
     }, [props.card])
     
     // ComputerCard component return
     return (
+
+        // css transition hook
         <CSSTransition
             in={flipIn}
             nodeRef={nodeRef}
             timeout={1000}
             classNames="flip"
         >
+
+            {/* card container */}
             <div className="computerCard">
 
+                {/* animated card */}
                 <div className="innerCard" ref={nodeRef}>
 
+                    {/* card content */}
                     <div className="cardFront">
 
                         <div className="cardTitle">
@@ -109,6 +127,7 @@ const ComputerCard = (props) => {
                         }
                     </div>
 
+                    {/* card reverse */}
                     <div className="cardBack">
                         <p>Superhero Showdown</p> 
                     </div>
