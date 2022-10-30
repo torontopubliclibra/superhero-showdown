@@ -123,7 +123,7 @@ const PlayerCard = (props) => {
 
                     {/* card reverse */}
                     <div className="cardBack">
-                        <p>Superhero Showdown</p> 
+                        <img className="cardLogo" src="./mobile-logo.png" alt="Superhero Showdown Logo" />
                     </div>
 
                 </div>

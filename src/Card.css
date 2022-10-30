@@ -65,9 +65,10 @@
     transform: rotateY(180deg);
 }
 
-.cardBack p {
-    text-transform: uppercase;
-    font-size: 25px;
+img.cardLogo {
+    max-width: 80%;
+    object-fit: contain !important;
+    aspect-ratio: 16/9 !important;
 }
 
 /* card image styles */
