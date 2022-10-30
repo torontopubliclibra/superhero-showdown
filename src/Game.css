@@ -142,8 +142,8 @@
     width: 25%;
     margin-top: -37%;
     margin-left: 1%;
-    aspect-ratio: 3/4.5;
-    background-color: #7e7e7e;
+    aspect-ratio: 3/4.55;
+    background-color: #3a4a56;
     border: solid #000 4px;
     border-radius: 10px;
     position: absolute;
@@ -226,8 +226,12 @@
     }
 
     .computerHand .deck {
-        order: 3;
+        order: 1;
         align-self: center;
+    }
+
+    .computerCard {
+        order: 2;
     }
 
     /* card stack styles */
@@ -414,13 +418,13 @@
     /* card stack styles */
     .stackCard {
         display: initial;
-        width: 78%;
-        margin-top: 12%;
-        aspect-ratio: 5/3;
+        width: 80%;
+        margin-top: 11.75%;
+        aspect-ratio: 5/3.05;
     }
 
     .stackCard2 {
-        margin-top: 14%;
+        margin-top: 14.75%;
         z-index: -2;
     }
 
@@ -434,12 +438,11 @@
     }
 
     .computerHand .stackCard {
-        margin-right: 2%;
         box-shadow: rgba(0, 0, 0, 0.5) -3px 3px 3px;
     }
 
     .computerHand .stackCard2 {
-        margin-right: 4%;
+        margin-right: 2%;
     }
 
     /* deck styles */

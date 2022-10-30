@@ -1,8 +1,15 @@
 // import styles
 import './Card.css';
 
+import { useState, useRef, useEffect } from 'react';
+
+import { CSSTransition } from 'react-transition-group';
+
 // ComputerCard component (passed props.card and props.displayStats from Game component)
 const ComputerCard = (props) => {
+
+    const [ flipIn, setFlipIn ] = useState(false);
+    const nodeRef = useRef(null);
 
     // initial card value variables
     let name = "";
@@ -45,46 +52,71 @@ const ComputerCard = (props) => {
         backgroundColor: color,
         opacity: 0.9
     }
+
+    useEffect(() => {
+        setFlipIn(true);
+        setTimeout(() => {
+            setFlipIn(false);
+        }, 1000)
+    }, [props.card])
     
     // ComputerCard component return
     return (
-        <div className="computerCard">
+        <CSSTransition
+            in={flipIn}
+            nodeRef={nodeRef}
+            timeout={1000}
+            classNames="flip"
+        >
+            <div className="computerCard">
 
-            <div className="cardTitle">
-                <p style= {cardStyles} ><a href={url} target="_blank" rel="noreferrer">{name}</a><br/>
-                {
-                    // if there is a pseudonym
-                    aka
+                <div className="innerCard" ref={nodeRef}>
 
-                    // display it
-                    ? aka
-                    : null
-                }
-                </p>
-            </div> {/* .cardTitle end */}
+                    <div className="cardFront">
 
-            <img src={img} alt={alt}/>
+                        <div className="cardTitle">
+                            <p style= {cardStyles} ><a href={url} target="_blank" rel="noreferrer">{name}</a><br/>
+                            {
+                                // if there is a pseudonym
+                                aka
 
-            {
-                // if the player isn't making a choice
-                props.displayStats
+                                // display it
+                                ? aka
+                                : null
+                            }
+                            </p>
+                        </div> {/* .cardTitle end */}
 
-                // display the stats
-                ? <div className="cardStats">
-                    <ul className="stats" style= {cardStyles} >
-                        <li>Intelligence: {int}</li>
-                        <li>Strength: {str}</li>
-                        <li>Speed: {spd}</li>
-                        <li>Durability: {dur}</li>
-                        <li>Fighting: {fig}</li>
-                    </ul>
-                </div> // .cardStats end
+                        <img src={img} alt={alt}/>
 
-                // else don't
-                : null
-            }
+                        {
+                            // if the player isn't making a choice
+                            props.displayStats
 
-        </div> // .computerCard end
+                            // display the stats
+                            ? <div className="cardStats">
+                                <ul className="stats" style= {cardStyles} >
+                                    <li>Intelligence: {int}</li>
+                                    <li>Strength: {str}</li>
+                                    <li>Speed: {spd}</li>
+                                    <li>Durability: {dur}</li>
+                                    <li>Fighting: {fig}</li>
+                                </ul>
+                            </div> // .cardStats end
+
+                            // else don't
+                            : null
+                        }
+                    </div>
+
+                    <div className="cardBack">
+                        <p>Superhero Showdown</p> 
+                    </div>
+
+                </div>
+
+            </div>
+        </CSSTransition>
 
     )
 }
