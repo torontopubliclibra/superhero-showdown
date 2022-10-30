@@ -1,21 +1,78 @@
-/* PlayerCard and ComputerCard styles */
-.playerCard,
-.computerCard {
+.flip-enter {
+    transform: rotateY(180deg) translateX(-7px);
+}
+
+.flip-enter .cardFront {
+    opacity: 0;
+}
+
+.flip-enter-active {
+    transform: rotateY(180deg) translateX(-7px);
+    transition: transform 1s ease-in-out;
+}
+
+.flip-enter-active .cardFront {
+    opacity: 1;
+    transition: opacity 2s ease-in;
+}
+
+.flip-exit {
+    transform: rotateY(180deg) translateX(-7px);
+}
+
+.flip-exit-active {
+    transform: rotateY(0deg) translateX(0px);
+    transition: transform 1s ease-in-out;
+}
+
+.innerCard {
     align-self: center;
     width: 100%;
     position: relative;
     color: #fff;
-    background-color: #fff;
-    overflow: hidden;
+    background-color: #7e7e7e;
     z-index: 4;
+    perspective: 1000px;
+    height: 100%;
+    width: auto;
+    aspect-ratio: 3/4.5;
+    border-radius: 10px;
+    transform-origin: 50% 50%;
+    transform-style: preserve-3d;
+}
+
+.cardFront, .cardBack {
     border: solid #000 4px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.5) 4px 4px 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    backface-visibility: hidden;
+    overflow: hidden;
+}
+
+.cardBack {
+    color: #000;
+    background-color: #a3cef1;
+    background: repeating-linear-gradient(135deg, #fff 0, #fff 5%, #a3cef1 0, #a3cef1 50%) 0 / 15px 15px;
+    transform: rotateY(180deg);
+}
+
+.cardBack p {
+    text-transform: uppercase;
+    font-size: 25px;
 }
 
 /* card image styles */
-.playerCard img,
-.computerCard img {
+.innerCard img,
+.innerCard img {
     width: 100%;
     height: 100%;
     transform: scale(1.1);
@@ -33,6 +90,7 @@
     width: 105%;
     z-index: 3;
     border-bottom: solid #000 4px;
+    white-space: nowrap;
 }
 
 .playerCard .cardTitle {
@@ -79,12 +137,20 @@
 /* medium sized screens */
 @media screen and (max-width: 1200px) {
 
+    .innerCard {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 5/3;
+        transform-origin: 50% 50%;
+        transform-style: preserve-3d;
+    }
+
     /* player and computer card styles */
     .playerCard {
         order: 2;
     }
 
-    .computerCard {
+    .computerCard .cardBack, .computerCard .cardFront {
         order: 4;
         box-shadow: rgba(0, 0, 0, 0.5) -4px 4px 4px;
     }
@@ -101,11 +167,13 @@
     }
 
     .playerCard img {
-        float: left;
+        position: absolute;
+        left: 0;
     }
 
     .computerCard img {
-        float: right;
+        position: absolute;
+        right: 0;
     }
 
     /* card title and statistics styles */
