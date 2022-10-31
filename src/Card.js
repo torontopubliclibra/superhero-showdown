@@ -13,7 +13,7 @@ const Card = (props) => {
     // initial stateful variable and ref
     const [ flipIn, setFlipIn ] = useState(false);
     const nodeRef = useRef(null);
-
+    
     // initial card value variables
     let name = "";
     let img = "";
@@ -26,6 +26,26 @@ const Card = (props) => {
     let dur = 0;
     let fig = 0;
     let color = `#000`;
+    let flipOut = {
+            animation: 'none'
+        };
+    let fadeOut = null;
+
+    useEffect(() => {
+
+        // set flip in animation state to true
+        setFlipIn(true);
+
+    }, [props.flipped])
+
+    // render side effects when props.card changes
+    useEffect(() => {
+
+        // set flip in animation state to false
+        setFlipIn(false);
+
+    }, [props.card])
+
 
     // if there is a card
     if(props.card){
@@ -50,29 +70,22 @@ const Card = (props) => {
         }
     }
 
+    if(props.flipped){
+        flipOut = {
+            animation: 'flipOut ease-in-out 1s',
+        }
+        fadeOut = {
+            animation: 'fadeOut ease-in 0.5s'
+        }
+    }
+
     // set the card styles to have the character's given colour
     let cardStyles = {
         backgroundColor: color,
-        opacity: 0.9
+        opacity: 0.9,
     }
 
     let cardType = props.type + 'Card';
-
-    // render side effects when props.card changes
-    useEffect(() => {
-
-        // set flip in animation state to true
-        setFlipIn(true);
-
-        // after 1 second
-        setTimeout(() => {
-
-            // set flip in animation state to false
-            setFlipIn(false);
-
-        }, 1000)
-
-    }, [props.card])
     
     // Card component return
     return (
@@ -89,10 +102,10 @@ const Card = (props) => {
             <div className={cardType}>
 
                 {/* animated card */}
-                <div className="innerCard" ref={nodeRef}>
+                <div className="innerCard" ref={nodeRef} style={flipOut}>
 
                     {/* card content */}
-                    <div className="cardFront">
+                    <div className="cardFront" style={fadeOut}>
 
                         <div className="cardTitle">
                             <p style= {cardStyles} ><a href={url} target="_blank" rel="noreferrer">{name}</a><br/>

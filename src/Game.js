@@ -22,13 +22,14 @@ const Game = (props) => {
     // initial stateful variables
     const [ computerDeck, setComputerDeck ] = useState([]);
     const [ playerDeck, setPlayerDeck ] = useState([]);
-    const [ statChoice, setStatChoice ] = useState("");
+    const [ statChoice, setStatChoice ] = useState(null);
     const [ pot, setPot ] = useState([]);
     const [ turnState, setTurnState ] = useState(1);
     const [ gameOver, setGameOver ] = useState(false);
     const [ displayStats, setDisplayStats ] = useState(false);
     const [ player, setPlayer ] = useState("");
     const [ recentPlayers, setRecentPlayers ] = useState([]);
+    const [ cardsFlipped, setCardsFlipped ] = useState(false);
 
     // initial render side effects
     useEffect(() => {
@@ -141,16 +142,17 @@ const Game = (props) => {
     // when the player clicks the next turn button
     const nextTurn = () => {
 
+        setCardsFlipped(true);
+
+        // set the turn state back to the start
+        setTurnState(1);
+
         // copy the decks and the pot
         const newPlayerDeck = playerDeck;
         const topPlayerCard = newPlayerDeck[0];
         const newComputerDeck = computerDeck;
         const topComputerCard = newComputerDeck[0];
-        const newPot = pot;
-
-        // remove the top cards from the new decks
-        newPlayerDeck.splice(0, 1);
-        newComputerDeck.splice(0, 1);
+        let newPot = pot;
 
         // empty default pot array
         const defaultPot = [];
@@ -172,7 +174,7 @@ const Game = (props) => {
                 })
 
                 // set pot to default
-                setPot(defaultPot);
+                newPot = defaultPot;
 
                 // end the switch statement
                 break;
@@ -182,9 +184,6 @@ const Game = (props) => {
 
                 // push the removed cards to the pot
                 newPot.push(topPlayerCard, topComputerCard);
-
-                // set the pot state to the new pot array
-                setPot(newPot);
 
                 // end the switch statement
                 break;
@@ -203,7 +202,7 @@ const Game = (props) => {
                 })
 
                 // set the pot to default
-                setPot(defaultPot);
+                newPot = defaultPot;
 
                 // end the switch statement
                 break;
@@ -213,20 +212,32 @@ const Game = (props) => {
 
                 // end the switch statement
                 break;
-        }
-        
-        // set the player deck state and the computer deck state to the new decks
-        setPlayerDeck(newPlayerDeck);
-        setComputerDeck(newComputerDeck);
-
-        // turn off the computer stats
-        setDisplayStats(false);
-
-        // set the turn state back to the start
-        setTurnState(1);
+            }
+            
+        // set the pot state to the new pot array
+        setPot(newPot);
 
         // clear out the stat choice
-        setStatChoice("");
+        setStatChoice(null);
+        
+        // once the card has flipped over
+        setTimeout(() => {
+
+            // unset cards flipped state
+            setCardsFlipped(false);
+
+            // turn off the computer stats
+            setDisplayStats(false);
+
+            // remove the top cards from the new decks
+            newPlayerDeck.splice(0, 1);
+            newComputerDeck.splice(0, 1);
+
+            // set the player deck state and the computer deck state to the new decks
+            setPlayerDeck(newPlayerDeck);
+            setComputerDeck(newComputerDeck);
+
+        }, 1000)
     }
 
     // when the user ends the game
@@ -274,14 +285,14 @@ const Game = (props) => {
         }, { onlyOnce: true })
     }
 
-    // player hand return
+    // player hand
     const playerHand = (
 
         <div className="playerHand">
             <h3>Your Card</h3>
 
             {/* player card component */}
-            <Card type="player" card={playerDeck[0]} displayStats="true"/>
+            <Card type="player" card={playerDeck[0]} displayStats="true" flipped={cardsFlipped}/>
             {
                 // if the deck has 3 or more cards
                 playerDeck.length >= 3
@@ -307,13 +318,13 @@ const Game = (props) => {
         </div> // .playerHand end
     )
 
-    // computer hand return
+    // computer hand
     const computerHand = (
         <div className="computerHand">
             <h3>Your Opponent's Card</h3>
 
             {/* computer card component */}
-            <Card type="computer" card={computerDeck[0]} displayStats={displayStats}/>
+            <Card type="computer" card={computerDeck[0]} displayStats={displayStats} flipped={cardsFlipped}/>
             {
                 // if the decl has 3 or more cards
                 computerDeck.length >= 3
@@ -338,6 +349,7 @@ const Game = (props) => {
         </div>
     )
     
+    // form for selecting a statistic
     const statForm = (
         <form>
             <label htmlFor="statistics">Pick the stat that you think will beat your opponent:</label>
@@ -353,18 +365,22 @@ const Game = (props) => {
         </form>
     )
 
+    // card pot text
     const cardPot = (
         <p className="pot">Pot: {pot.length}</p>
     )
 
+    // next turn button
     const nextTurnButton = (
         <button className="button" onClick={nextTurn}>Next Turn</button>
     )
 
+    // end game button
     const endGameButton = (
         <button className="button" onClick={endGame}>End Game</button>
     )
 
+    // card pot text for results
     const andAlsoCardPot = (
 
         // if the pot has any cards
@@ -378,6 +394,7 @@ const Game = (props) => {
                             
     )
 
+    // game over screen
     const gameOverScreen = (
         <div className="gameOver">
 

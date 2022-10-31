@@ -113,13 +113,11 @@ const Main = () => {
                 // if the game hasn't started yet
                 !gameStart
                 // display start screen
-                ? <>
-                    <form className="startScreen">
+                ? <form className="startScreen">
                         <label htmlFor="nameInput">Enter your first name:</label>
                         <input onChange={handleInputChange} type="text" id="nameInput"/>
                         <button className="button" onClick={handleGameStart}>Start Game</button>
                     </form>
-                </>
                 // if the game has started, display the game component
                 : <Game deck={characterDeck} name={playerName}/>
             }
