@@ -9,8 +9,7 @@ import { getDatabase, ref, onValue, push } from 'firebase/database';
 import firebase from './firebase';
 
 // import components
-import ComputerCard from './ComputerCard';
-import PlayerCard from './PlayerCard';
+import Card from './Card';
 
 // Game component (passed props.deck and props.name from Main component)
 const Game = (props) => {
@@ -27,11 +26,11 @@ const Game = (props) => {
     const [ pot, setPot ] = useState([]);
     const [ turnState, setTurnState ] = useState(1);
     const [ gameOver, setGameOver ] = useState(false);
-    const [ displayCompStats, setDisplayCompStats ] = useState(false);
+    const [ displayStats, setDisplayStats ] = useState(false);
     const [ player, setPlayer ] = useState("");
     const [ recentPlayers, setRecentPlayers ] = useState([]);
 
-    // render side effects
+    // initial render side effects
     useEffect(() => {
 
         // props variables
@@ -47,9 +46,17 @@ const Game = (props) => {
 
         // loop through props deck and split the cards into two new deck arrays
         for (let character in deck){
+
+            // if the card is in the first half of the deck
             if (character <= (deck.length/2 - 1)){
+
+                // push it to the first deck
                 deckOne.push(deck[character])
+
+            // if the card is in the second half of the deck
             } else {
+
+                // push it to the second deck
                 deckTwo.push(deck[character])
             }
         }
@@ -76,6 +83,17 @@ const Game = (props) => {
         // if the user has made a selection
         if (statChoice){
 
+            // game over check function
+            const gameOverCheck = (deck) => {
+
+                // if either player is out of cards when the stats are checked
+                if (deck.length === 1){
+
+                    // set the game over state to true
+                    setGameOver(true);
+                }
+            }
+
             // find the corresponding statistic for each deck's top card
             const playerStat = playerDeck[0].data[statChoice];
             const computerStat = computerDeck[0].data[statChoice];
@@ -86,12 +104,8 @@ const Game = (props) => {
                 // set turn state to "win"
                 setTurnState(2);
 
-                // and if the computer is out of cards
-                if (computerDeck.length === 1){
-
-                    // set the game over state to true
-                    setGameOver(true);
-                }
+                // check the loser's deck to see if the game is over
+                gameOverCheck(computerDeck);
             
             // if the player's stat and the computer's stat are equal
             } else if (playerStat === computerStat) {
@@ -99,12 +113,9 @@ const Game = (props) => {
                 // set turn state to "tie"
                 setTurnState(3);
 
-                // and if the player is out of cards or the computer is out of cards
-                if (playerDeck.length === 1 || computerDeck.length === 1){
-
-                    // set the game over state to true
-                    setGameOver(true);
-                }
+                // check both decks to see if the game is over
+                gameOverCheck(playerDeck);
+                gameOverCheck(computerDeck);
 
             // if the computer's stat is bigger than the player's
             } else if (playerStat < computerStat){
@@ -112,16 +123,12 @@ const Game = (props) => {
                 // set turn state to "lose"
                 setTurnState(4);
 
-                // and if the player is out of cards
-                if (playerDeck.length === 1){
-
-                    // set the game over state to true
-                    setGameOver(true);
-                }
+                // check the player's deck to see if the game is over
+                gameOverCheck(playerDeck);
             }
 
             // display the computer's cards statistics once the scores have been checked
-            setDisplayCompStats(true);
+            setDisplayStats(true);
 
         // if the user hasn't made a selection
         } else {
@@ -136,90 +143,84 @@ const Game = (props) => {
 
         // copy the decks and the pot
         const newPlayerDeck = playerDeck;
+        const topPlayerCard = newPlayerDeck[0];
         const newComputerDeck = computerDeck;
+        const topComputerCard = newComputerDeck[0];
         const newPot = pot;
 
-        // default pot value
+        // remove the top cards from the new decks
+        newPlayerDeck.splice(0, 1);
+        newComputerDeck.splice(0, 1);
+
+        // empty default pot array
         const defaultPot = [];
 
-        // if the player won
-        if (turnState === 2){
+        // build the new decks using a switch statement
+        switch (turnState) {
 
-            // copy losing card
-            const losingCard = newComputerDeck[0];
+            // if the player won
+            case 2:
 
-            // copy winning card
-            const winningCard = newPlayerDeck[0];
+                // push the removed cards to the bottom of the new player deck
+                newPlayerDeck.push(topComputerCard, topPlayerCard);
 
-            // remove the top cards from the new decks
-            newPlayerDeck.splice(0, 1);
-            newComputerDeck.splice(0, 1);
+                // loop through the pot
+                newPot.forEach((card) => {
 
-            // push the removed cards to the bottom of the new player deck
-            newPlayerDeck.push(losingCard, winningCard);
+                    // push each card from the pot to the bottom of the new player deck
+                    newPlayerDeck.push(card);
+                })
 
-            // loop through the pot
-            newPot.forEach((card) => {
+                // set pot to default
+                setPot(defaultPot);
 
-                // push each card from the pot to the bottom of the new player deck
-                newPlayerDeck.push(card);
-            })
+                // end the switch statement
+                break;
 
-            // set pot to default
-            setPot(defaultPot);
+            // if the player and the computer tied
+            case 3:
 
-        // if the player and the computer tied
-        } else if (turnState === 3){
+                // push the removed cards to the pot
+                newPot.push(topPlayerCard, topComputerCard);
 
-            // copy each card
-            const playerCard = newComputerDeck[0];
-            const computerCard = newPlayerDeck[0];
+                // set the pot state to the new pot array
+                setPot(newPot);
 
-            // remove the top cards from the new decks
-            newPlayerDeck.splice(0, 1);
-            newComputerDeck.splice(0, 1);
+                // end the switch statement
+                break;
 
-            // push the removed cards to the pot
-            newPot.push(playerCard, computerCard);
+            // if the computer won
+            case 4:
 
-            // set the pot state to the new pot array
-            setPot(newPot);
+                // push the removed cards to the bottom of the new computer deck
+                newComputerDeck.push(topPlayerCard, topComputerCard);
 
-        // if the computer won
-        } else if (turnState === 4){
+                // loop through the pot
+                newPot.forEach((card) => {
 
-            // copy winning card
-            const winningCard = newComputerDeck[0];
+                    // push each card from the pot to the bottom of the new computer deck
+                    newComputerDeck.push(card);
+                })
 
-            // copy losing card
-            const losingCard = newPlayerDeck[0];
+                // set the pot to default
+                setPot(defaultPot);
 
-            // remove the top cards from the new decks
-            newComputerDeck.splice(0, 1);
-            newPlayerDeck.splice(0, 1);
+                // end the switch statement
+                break;
 
-            // push the removed cards to the bottom of the new computer deck
-            newComputerDeck.push(losingCard, winningCard);
+            // by default
+            default: 
 
-            // loop through the pot
-            newPot.forEach((card) => {
-
-                // push each card from the pot to the bottom of the new player deck
-                newComputerDeck.push(card);
-            })
-
-            // set the pot to default
-            setPot(defaultPot);
+                // end the switch statement
+                break;
         }
         
-        // set the player deck state to the new player deck
+        // set the player deck state and the computer deck state to the new decks
         setPlayerDeck(newPlayerDeck);
-
-        // set the computer deck state to the new computer deck
         setComputerDeck(newComputerDeck);
 
         // turn off the computer stats
-        setDisplayCompStats(false);
+        setDisplayStats(false);
 
         // set the turn state back to the start
         setTurnState(1);
@@ -269,8 +270,145 @@ const Game = (props) => {
 
             // set the recent players state to the new players array
             setRecentPlayers(newRecentPlayers);
-        })
+            
+        }, { onlyOnce: true })
     }
+
+    // player hand return
+    const playerHand = (
+
+        <div className="playerHand">
+            <h3>Your Card</h3>
+
+            {/* player card component */}
+            <Card type="player" card={playerDeck[0]} displayStats="true"/>
+            {
+                // if the deck has 3 or more cards
+                playerDeck.length >= 3
+
+                    // show the full card stack
+                    ? <div className="stackCard stackCard1"></div>
+                    : null
+            }
+            {
+                // if the deck has 2 or more cards
+                playerDeck.length >= 2
+
+                    // show only one card in the stack
+                    ? <div className="stackCard stackCard2"></div>
+                    : null
+            }
+            <div className="deck">
+
+                <p>Deck: {playerDeck.length}</p>
+                
+            </div> {/* .deck end */}
+            
+        </div> // .playerHand end
+    )
+
+    // computer hand return
+    const computerHand = (
+        <div className="computerHand">
+            <h3>Your Opponent's Card</h3>
+
+            {/* computer card component */}
+            <Card type="computer" card={computerDeck[0]} displayStats={displayStats}/>
+            {
+                // if the decl has 3 or more cards
+                computerDeck.length >= 3
+
+                    // show the full card stack
+                    ? <div className="stackCard stackCard1"></div>
+                    : null
+            }
+            {
+                // if the deck has 2 or more cards
+                computerDeck.length >= 2
+
+                    // show only one card in the stack
+                    ? <div className="stackCard stackCard2"></div>
+                    : null
+            }
+            <div className="deck">
+
+                <p>Deck: {computerDeck.length}</p>
+
+            </div>
+        </div>
+    )
+    
+    const statForm = (
+        <form>
+            <label htmlFor="statistics">Pick the stat that you think will beat your opponent:</label>
+            <select id="statistics" onChange={handleInputChange}>
+                <option value="" default>Select a statistic:</option>
+                <option value="int" default>Intelligence</option>
+                <option value="str">Strength</option>
+                <option value="spd">Speed</option>
+                <option value="dur">Durability</option>
+                <option value="fig">Fighting</option>
+            </select>
+            <button className="button" onClick={checkStats}>Fight</button>
+        </form>
+    )
+
+    const cardPot = (
+        <p className="pot">Pot: {pot.length}</p>
+    )
+
+    const nextTurnButton = (
+        <button className="button" onClick={nextTurn}>Next Turn</button>
+    )
+
+    const endGameButton = (
+        <button className="button" onClick={endGame}>End Game</button>
+    )
+
+    const andAlsoCardPot = (
+
+        // if the pot has any cards
+        pot.length > 0
+
+        // mention the pot
+        ? `and the entire pot `
+
+        // else don't
+        : ``
+                            
+    )
+
+    const gameOverScreen = (
+        <div className="gameOver">
+
+            {/* display game over text */}
+            <h3>GAME OVER</h3>
+            {
+                // if the player has more than 1 card
+                playerDeck.length > 1
+
+                // tell them they've won
+                ? <h4>You won!!</h4>
+
+                // else tell them they've lost
+                : <h4>Try again!!</h4>
+            }
+
+            {/* recent players list */}
+            <p>Here are our latest champions:</p>
+            <ol>
+                {/* map each recent player into a list item */}
+                { recentPlayers.map((player) => {
+                    return(
+                        <li key={player.key}>{player.name}</li>
+                    )
+                }) }
+            </ol>
+
+            {/* play again button */}
+            <button className="button" onClick={refresh}>Play Again</button>
+        </div>
+    )
 
     // Game component return
     return (
@@ -280,49 +418,7 @@ const Game = (props) => {
                 turnState !== 5
 
                 // display the player's hand
-                ? <div className="playerHand">
-                    <h3>Your Card</h3>
-
-                    {/* player card component */}
-                    <PlayerCard card={playerDeck[0]}/>
-                    {
-                        // if the deck has 3 or more cards
-                        playerDeck.length >= 3
-
-                            // show the full card stack
-                            ? <div className="stackCard stackCard1"></div>
-                            : null
-                    }
-                    {
-                        // if the deck has 2 or more cards
-                        playerDeck.length >= 2
-
-                            // show only one card in the stack
-                            ? <div className="stackCard stackCard2"></div>
-                            : null
-                    }
-                    <div className="deck">
-
-                        <p>Deck: {playerDeck.length}</p>
-                        {
-                            // if the deck has 3 or more cards
-                            playerDeck.length >= 3
-
-                                // show the full card stack
-                                ? <div className="deckCard deckCard1"></div>
-                                : null
-                        }
-                        {
-                            // if the deck has 2 or more cards
-                            playerDeck.length >= 2
-
-                                // show only one card in the stack
-                                ? <div className="deckCard deckCard2"></div>
-                                : null
-                        }
-                    </div> {/* .deck end */}
-
-                </div> // .playerHand end
+                ? playerHand
                 : null
             }
             {
@@ -337,26 +433,15 @@ const Game = (props) => {
 
                     <div className="gameArea">
                         
-                        {/* prompt the user to pick a stastistic */}
-                        <form>
-                            <label htmlFor="statistics">Pick the stat that you think will beat your opponent:</label>
-                            <select id="statistics" onChange={handleInputChange}>
-                                <option value="" default>Select a statistic:</option>
-                                <option value="int" default>Intelligence</option>
-                                <option value="str">Strength</option>
-                                <option value="spd">Speed</option>
-                                <option value="dur">Durability</option>
-                                <option value="fig">Fighting</option>
-                            </select>
-                            <button className="button" onClick={checkStats}>Fight</button>
-                        </form>
+                        {/* display select statistic form */}
+                        {statForm}
 
                         {
                             // if the pot has any cards
                             pot.length > 0
 
                             // display the pot and it's length
-                            ? <p className="pot">Pot: {pot.length}</p>
+                            ? cardPot
                             : null
                         }
 
@@ -378,26 +463,16 @@ const Game = (props) => {
                     <div className="gameArea">
 
                         {/* announce the winner */}
-                        <p>{playerDeck[0].data.name} beat {computerDeck[0].data.name}! The card {
-
-                                // if the pot has any cards
-                                pot.length > 0
-
-                                // mention the pot
-                                ? `and the entire pot `
-                                : ``
-                            }
-
-                            will be added to your deck.</p>
+                        <p>{playerDeck[0].data.name} beat {computerDeck[0].data.name}! The card {andAlsoCardPot} will be added to your deck.</p>
                         {
                             // if the game isn't over yet
                             !gameOver
 
                             // show the next turn button
-                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                            ? nextTurnButton
 
                             // else show the end game button
-                            : <button className="button" onClick={endGame}>End Game</button>
+                            : endGameButton
 
                         }
                         {
@@ -405,7 +480,7 @@ const Game = (props) => {
                             pot.length > 0
 
                             // display the pot and it's length
-                            ? <p className="pot">Pot: {pot.length}</p>
+                            ? cardPot
                             : null
                         }
                     </div> {/* .gameArea end */}
@@ -433,18 +508,17 @@ const Game = (props) => {
                             !gameOver
 
                             // show the next turn button
-                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                            ? nextTurnButton
 
                             // else show the end game button
-                            : <button className="button" onClick={endGame}>End Game</button>
+                            : endGameButton
                         }
                         {
-
                             // if the pot has any cards
                             pot.length > 0
 
                             // display the pot and it's length
-                            ? <p className="pot">Pot: {pot.length}</p>
+                            ? cardPot
                             : null
                         }
                     </div> {/* .gameArea end */}
@@ -464,33 +538,23 @@ const Game = (props) => {
 
                     {/* announce the loser */}
                     <div className="gameArea">
-                        <p>{computerDeck[0].data.name} beat {playerDeck[0].data.name}! Your card {
-
-                                // if the pot has any cards
-                                pot.length > 0
-
-                                // mention the pot
-                                ? `and the entire pot `
-                                : ``
-                            }
-
-                            will be added to your opponent's deck.</p>
+                        <p>{computerDeck[0].data.name} beat {playerDeck[0].data.name}! Your card {andAlsoCardPot} will be added to your opponent's deck.</p>
                         {
                             // if the game isn't over yet
                             !gameOver
 
                             // show the next turn button
-                            ? <button className="button" onClick={nextTurn}>Next Turn</button>
+                            ? nextTurnButton
 
                             // else show the end game button
-                            : <button className="button" onClick={endGame}>End Game</button>
+                            : endGameButton
                         }
                         {
                             // if the pot has any cards
                             pot.length > 0
 
                             // display the pot and it's length
-                            ? <p className="pot">Pot: {pot.length}</p>
+                            ? cardPot
                             : null
                         }
                     </div> {/* .gameArea end */}
@@ -502,83 +566,14 @@ const Game = (props) => {
                 turnState !== 5
 
                 // display the player's hand
-                ? <div className="computerHand">
-                    <h3>Your Opponent's Card</h3>
-
-                    {/* computer card component */}
-                    <ComputerCard displayStats={displayCompStats} card={computerDeck[0]}/>
-                    {
-                        // if the decl has 3 or more cards
-                        computerDeck.length >= 3
-
-                            // show the full card stack
-                            ? <div className="stackCard stackCard1"></div>
-                            : null
-                    }
-                    {
-                        // if the deck has 2 or more cards
-                        computerDeck.length >= 2
-
-                            // show only one card in the stack
-                            ? <div className="stackCard stackCard2"></div>
-                            : null
-                    }
-                    <div className="deck">
-
-                        <p>Deck: {computerDeck.length}</p>
-                        {
-                            // if the deck has 3 or more cards
-                            computerDeck.length >= 3
-
-                                // show the full card stack
-                                ? <div className="deckCard deckCard1"></div>
-                                : null
-                        }
-                        {
-                            // if the deck has 2 or more cards
-                            computerDeck.length >= 2
-
-                                // show only one card in the stack
-                                ? <div className="deckCard deckCard2"></div>
-                                : null
-                        }
-                    </div>
-                </div>
+                ? computerHand
                 : null
             }
             {
                 // if the game is over
                 turnState === 5
 
-                ? <div className="gameOver">
-
-                    {/* display game over text */}
-                    <h3>GAME OVER</h3>
-                    {
-                        // if the player has more than 1 card
-                        playerDeck.length > 1
-
-                        // tell them they've won
-                        ? <h4>You won!!</h4>
-
-                        // else tell them they've lost
-                        : <h4>Try again!!</h4>
-                    }
-
-                    {/* recent players list */}
-                    <p>Here are our latest champions:</p>
-                    <ol>
-                        {/* map each recent player into a list item */}
-                        { recentPlayers.map((player) => {
-                            return(
-                                <li key={player.key}>{player.name}</li>
-                            )
-                        }) }
-                    </ol>
-
-                    {/* play again button */}
-                    <button className="button" onClick={refresh}>Play Again</button>
-                </div> // .gameOver end
+                ? gameOverScreen
                 : null
             }
         </section>
