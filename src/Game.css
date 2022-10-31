@@ -191,6 +191,7 @@
         order: 4;
         width: 100%;
         padding: 40px;
+        margin-left: 20px;
     }
 
     /* player and computer hand styles */
@@ -306,6 +307,7 @@
     .gameArea {
         flex-flow: row wrap;
         margin: 0 auto;
+        margin-left: auto !important;
         padding: 20px;
     }
 
