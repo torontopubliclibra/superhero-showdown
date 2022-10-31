@@ -144,9 +144,6 @@ const Game = (props) => {
 
         setCardsFlipped(true);
 
-        // set the turn state back to the start
-        setTurnState(1);
-
         // copy the decks and the pot
         const newPlayerDeck = playerDeck;
         const topPlayerCard = newPlayerDeck[0];
@@ -236,6 +233,9 @@ const Game = (props) => {
             // set the player deck state and the computer deck state to the new decks
             setPlayerDeck(newPlayerDeck);
             setComputerDeck(newComputerDeck);
+
+            // set the turn state back to the start
+            setTurnState(1);
 
         }, 1000)
     }
