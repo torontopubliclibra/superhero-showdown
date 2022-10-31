@@ -142,6 +142,7 @@ const Game = (props) => {
     // when the player clicks the next turn button
     const nextTurn = () => {
 
+        // flip over card
         setCardsFlipped(true);
 
         // copy the decks and the pot
@@ -154,48 +155,70 @@ const Game = (props) => {
         // empty default pot array
         const defaultPot = [];
 
-        // after half a second (card has started flipping over)
+        // after 0.5 seconds (card has started flipping over)
         setTimeout(() => {
 
             // remove the top cards from the new decks
             newPlayerDeck.splice(0, 1);
             newComputerDeck.splice(0, 1);
 
-            if (turnState === 2){
-                // push the removed cards to the bottom of the new player deck
-                newPlayerDeck.push(topComputerCard, topPlayerCard);
+            // check turnState with a switch statement
+            switch (turnState) {
 
-                // loop through the pot
-                newPot.forEach((card) => {
+                // if the player has won
+                case 2:
+                    
+                    // push the removed cards to the bottom of the new player deck
+                    newPlayerDeck.push(topComputerCard, topPlayerCard);
 
-                    // push each card from the pot to the bottom of the new player deck
-                    newPlayerDeck.push(card);
-                })
+                    // loop through the pot
+                    newPot.forEach((card) => {
 
-                // set pot to default
-                newPot = defaultPot;
-                
-            } else if (turnState === 3){
+                        // push any cards from the pot to the bottom of the new player deck
+                        newPlayerDeck.push(card);
+                    })
 
-                // push the removed cards to the pot
-                newPot.push(topPlayerCard, topComputerCard);
+                    // set pot to default
+                    newPot = defaultPot;
 
-            } else if (turnState === 4){
+                    // break out of the switch statement
+                    break;
 
-                // push the removed cards to the bottom of the new computer deck
-                newComputerDeck.push(topPlayerCard, topComputerCard);
+                // if the player and the computer have tied
+                case 3: 
 
-                // loop through the pot
-                newPot.forEach((card) => {
+                    // push the removed cards to the pot
+                    newPot.push(topPlayerCard, topComputerCard);
 
-                    // push each card from the pot to the bottom of the new computer deck
-                    newComputerDeck.push(card);
-                })
+                    // break out of the switch statement
+                    break;
 
-                // set the pot to default
-                newPot = defaultPot;
+                // if the computer has won
+                case 4:
+
+                    // push the removed cards to the bottom of the new computer deck
+                    newComputerDeck.push(topPlayerCard, topComputerCard);
+
+                    // loop through the pot
+                    newPot.forEach((card) => {
+
+                        // push any cards from the pot to the bottom of the new computer deck
+                        newComputerDeck.push(card);
+                    })
+
+                    // set the pot to default
+                    newPot = defaultPot;
+
+                    // break out of the switch statement
+                    break;
+
+                // by default
+                default: 
+
+                    // break out of the switch statement
+                    break;
             }
-
+        
         }, 500)
             
         // after 1 second (card has flipped over)
@@ -309,7 +332,7 @@ const Game = (props) => {
             {/* computer card component */}
             <Card type="computer" card={computerDeck[0]} displayStats={displayStats} flipped={cardsFlipped}/>
             {
-                // if the decl has 3 or more cards
+                // if the deck has 3 or more cards
                 computerDeck.length >= 3
 
                     // show the full card stack
@@ -573,6 +596,7 @@ const Game = (props) => {
                 // if the game is over
                 turnState === 5
 
+                // display game over screen
                 ? gameOverScreen
                 : null
             }

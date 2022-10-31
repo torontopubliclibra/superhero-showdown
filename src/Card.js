@@ -11,7 +11,7 @@ import { CSSTransition } from 'react-transition-group';
 const Card = (props) => {
 
     // initial stateful variable and ref
-    const [ flipIn, setFlipIn ] = useState(true);
+    const [ flipped, setFlipped ] = useState(true);
     const nodeRef = useRef(null);
     
     // initial card value variables
@@ -27,26 +27,28 @@ const Card = (props) => {
     let fig = 0;
     let color = `#000`;
     let flipOut = {
-            animation: 'none'
-        };
-    let fadeOut = null;
+        animation: 'none'
+    };
+    let fadeOut = {
+        animation: 'none'
+    };
 
+    // render side effects when props.flipped changes
     useEffect(() => {
-
-        // set flip in animation state to true
-        setFlipIn(true);
-
+        
+        // set flip in animation state to true, ensuring it's flipped over on re-render
+        setFlipped(true);
+        
     }, [props.flipped])
-
+    
     // render side effects when props.card changes
     useEffect(() => {
-
-        // set flip in animation state to false
-        setFlipIn(false);
-
+        
+        // set flipped state to false, triggering the animation
+        setFlipped(false);
+        
     }, [props.card])
-
-
+    
     // if there is a card
     if(props.card){
 
@@ -70,10 +72,15 @@ const Card = (props) => {
         }
     }
 
+    // if card is ready to be flipped over
     if(props.flipped){
+
+        // flip over card
         flipOut = {
             animation: 'flipOut ease-in-out 1s',
         }
+
+        // fade in card front
         fadeOut = {
             animation: 'fadeOut ease-in 0.5s'
         }
@@ -81,18 +88,49 @@ const Card = (props) => {
 
     // set the card styles to have the character's given colour
     let cardStyles = {
-        backgroundColor: color,
-        opacity: 0.9,
+        backgroundColor: color
     }
 
+    // create the right name for each card div (playerCard or computerCard)
     let cardType = props.type + 'Card';
+
+    const cardTitle = (
+        <div className="cardTitle">
+            <p style= {cardStyles} >
+                <a href={url} target="_blank" rel="noreferrer">
+                    {name}
+                </a>
+                <br/>
+            {
+                // if there is a pseudonym
+                aka
+
+                // display it
+                ? aka
+                : null
+            }
+            </p>
+        </div>
+    )
+
+    const cardStats = (
+        <div className="cardStats">
+            <ul className="stats" style= {cardStyles} >
+                <li>Intelligence: {int}</li>
+                <li>Strength: {str}</li>
+                <li>Speed: {spd}</li>
+                <li>Durability: {dur}</li>
+                <li>Fighting: {fig}</li>
+            </ul>
+        </div> // .cardStats end
+    )
     
     // Card component return
     return (
 
         // css transition hook
         <CSSTransition
-            in={flipIn}
+            in={flipped}
             nodeRef={nodeRef}
             timeout={1000}
             classNames="flip"
@@ -102,53 +140,43 @@ const Card = (props) => {
             <div className={cardType}>
 
                 {/* animated card */}
-                <div className="innerCard" ref={nodeRef} style={flipOut}>
+                <div
+                    className="innerCard"
+                    ref={nodeRef}
+                    style={flipOut}
+                >
 
                     {/* card content */}
                     <div className="cardFront" style={fadeOut}>
 
-                        <div className="cardTitle">
-                            <p style= {cardStyles} ><a href={url} target="_blank" rel="noreferrer">{name}</a><br/>
-                            {
-                                // if there is a pseudonym
-                                aka
+                        {/* card title */}
+                        {cardTitle}
 
-                                // display it
-                                ? aka
-                                : null
-                            }
-                            </p>
-                        </div> {/* .cardTitle end */}
-
+                        {/* card image */}
                         <img src={img} alt={alt}/>
 
+                        {/* card stats */}
                         {
                             // if the stats are meant to be visible
                             props.displayStats
 
                             // display the stats
-                            ? <div className="cardStats">
-                                <ul className="stats" style= {cardStyles} >
-                                    <li>Intelligence: {int}</li>
-                                    <li>Strength: {str}</li>
-                                    <li>Speed: {spd}</li>
-                                    <li>Durability: {dur}</li>
-                                    <li>Fighting: {fig}</li>
-                                </ul>
-                            </div> // .cardStats end
+                            ? cardStats
 
                             // else don't
                             : null
                         }
-                    </div>
+
+                    </div> {/* .cardFront end */}
 
                     {/* card reverse */}
                     <div className="cardBack">
+
+                        {/* logo on back of card */}
                         <img className="cardLogo" src="./mobile-logo.png" alt="Superhero Showdown Logo" />
+
                     </div>
-
                 </div>
-
             </div>
         </CSSTransition>
 

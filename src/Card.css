@@ -118,6 +118,7 @@ img.cardLogo {
     margin: 0;
     padding: 10px;
     font-weight: 600;
+    opacity: 0.9;
 }
 
 .cardTitle p a {
@@ -141,6 +142,7 @@ img.cardLogo {
     padding: 25px;
     list-style: none;
     text-align: left;
+    opacity: 0.9;
 }
 
 .cardStats ul li {
