@@ -11,7 +11,7 @@ import { CSSTransition } from 'react-transition-group';
 const Card = (props) => {
 
     // initial stateful variable and ref
-    const [ flipIn, setFlipIn ] = useState(false);
+    const [ flipIn, setFlipIn ] = useState(true);
     const nodeRef = useRef(null);
     
     // initial card value variables
