@@ -154,12 +154,14 @@ const Game = (props) => {
         // empty default pot array
         const defaultPot = [];
 
-        // build the new decks using a switch statement
-        switch (turnState) {
+        // after half a second (card has started flipping over)
+        setTimeout(() => {
 
-            // if the player won
-            case 2:
+            // remove the top cards from the new decks
+            newPlayerDeck.splice(0, 1);
+            newComputerDeck.splice(0, 1);
 
+            if (turnState === 2){
                 // push the removed cards to the bottom of the new player deck
                 newPlayerDeck.push(topComputerCard, topPlayerCard);
 
@@ -172,21 +174,13 @@ const Game = (props) => {
 
                 // set pot to default
                 newPot = defaultPot;
-
-                // end the switch statement
-                break;
-
-            // if the player and the computer tied
-            case 3:
+                
+            } else if (turnState === 3){
 
                 // push the removed cards to the pot
                 newPot.push(topPlayerCard, topComputerCard);
 
-                // end the switch statement
-                break;
-
-            // if the computer won
-            case 4:
+            } else if (turnState === 4){
 
                 // push the removed cards to the bottom of the new computer deck
                 newComputerDeck.push(topPlayerCard, topComputerCard);
@@ -200,25 +194,18 @@ const Game = (props) => {
 
                 // set the pot to default
                 newPot = defaultPot;
-
-                // end the switch statement
-                break;
-
-            // by default
-            default: 
-
-                // end the switch statement
-                break;
             }
-            
-        // set the pot state to the new pot array
-        setPot(newPot);
 
-        // clear out the stat choice
-        setStatChoice(null);
-        
-        // once the card has flipped over
+        }, 500)
+            
+        // after 1 second (card has flipped over)
         setTimeout(() => {
+    
+            // clear out the stat choice
+            setStatChoice(null);
+                
+            // set the turn state back to the start
+            setTurnState(1);
 
             // unset cards flipped state
             setCardsFlipped(false);
@@ -226,16 +213,12 @@ const Game = (props) => {
             // turn off the computer stats
             setDisplayStats(false);
 
-            // remove the top cards from the new decks
-            newPlayerDeck.splice(0, 1);
-            newComputerDeck.splice(0, 1);
-
             // set the player deck state and the computer deck state to the new decks
             setPlayerDeck(newPlayerDeck);
             setComputerDeck(newComputerDeck);
 
-            // set the turn state back to the start
-            setTurnState(1);
+            // set the pot state to the new pot array
+            setPot(newPot);
 
         }, 1000)
     }
