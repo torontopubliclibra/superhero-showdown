@@ -61,7 +61,7 @@
 .cardBack {
     color: #000;
     background-color: #a3cef1;
-    background: repeating-linear-gradient(135deg, #fff 0, #fff 5%, #a3cef1 0, #a3cef1 50%) 0 / 15px 15px;
+    background: repeating-linear-gradient(135deg, #78848ee2 0, #78848ee2 5%, #a3cef1 0, #a3cef1 50%) 0 / 15px 15px;
     transform: rotateY(180deg);
 }
 

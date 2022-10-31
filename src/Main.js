@@ -76,7 +76,7 @@ const Main = () => {
             // set character deck state to the shuffled 20 card deck
             setCharacterDeck(newDeck);
 
-        })
+        }, { onlyOnce: true })
     }, [])
 
     // when the user presses start game button

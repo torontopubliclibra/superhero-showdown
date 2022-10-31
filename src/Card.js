@@ -7,8 +7,8 @@ import { useState, useRef, useEffect } from 'react';
 // import transition hook
 import { CSSTransition } from 'react-transition-group';
 
-// ComputerCard component (passed props.card and props.displayStats from Game component)
-const ComputerCard = (props) => {
+// Card component (passed props.type, props.card, props.displayStats from Game component)
+const Card = (props) => {
 
     // initial stateful variable and ref
     const [ flipIn, setFlipIn ] = useState(false);
@@ -56,6 +56,8 @@ const ComputerCard = (props) => {
         opacity: 0.9
     }
 
+    let cardType = props.type + 'Card';
+
     // render side effects when props.card changes
     useEffect(() => {
 
@@ -72,7 +74,7 @@ const ComputerCard = (props) => {
 
     }, [props.card])
     
-    // ComputerCard component return
+    // Card component return
     return (
 
         // css transition hook
@@ -84,7 +86,7 @@ const ComputerCard = (props) => {
         >
 
             {/* card container */}
-            <div className="computerCard">
+            <div className={cardType}>
 
                 {/* animated card */}
                 <div className="innerCard" ref={nodeRef}>
@@ -108,7 +110,7 @@ const ComputerCard = (props) => {
                         <img src={img} alt={alt}/>
 
                         {
-                            // if the player isn't making a choice
+                            // if the stats are meant to be visible
                             props.displayStats
 
                             // display the stats
@@ -140,5 +142,5 @@ const ComputerCard = (props) => {
     )
 }
 
-// export ComputerCard
-export default ComputerCard;
+// export Card component
+export default Card;
