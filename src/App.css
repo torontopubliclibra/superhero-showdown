@@ -144,5 +144,11 @@ footer p a:hover {
   .button {
     font-size: 3.5vw;
   }
+
+  footer {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 3.2vw;
+  }
   
 }

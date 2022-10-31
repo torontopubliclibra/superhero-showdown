@@ -25,8 +25,8 @@ function App() {
         <Main />
 
         <footer>
-          <p>All characters and data pulled from the <a href="https://marvel.fandom.com/wiki/Marvel_Database" target="_blank" rel="noreferrer">Marvel Database</a> and stored using <a href="https://firebase.google.com/" target="_blank" rel="noreferrer">Firebase</a>.</p>
-          <p>Built by <a href="https://danateagle.com" target="_blank" rel="noreferrer">Dana Teagle</a> at <a href="https://junocollege.com" target="_blank" rel="noreferrer">Juno College</a> in 2022.</p>
+          <p>All character images and statistics are taken from the <a href="https://marvel.fandom.com/wiki/Marvel_Database" target="_blank" rel="noreferrer">Marvel Database Wiki</a> and stored on <a href="https://firebase.google.com/" target="_blank" rel="noreferrer">Firebase</a>.</p>
+          <p>This app was built using <a href="https://reactjs.org/" target="_blank" rel="noreferrer">React.js</a> by <a href="https://danateagle.com" target="_blank" rel="noreferrer">Dana Teagle</a> at <a href="https://junocollege.com" target="_blank" rel="noreferrer">Juno College</a> in 2022.</p>
         </footer>
 
       </div> {/* .wrapper end */}
