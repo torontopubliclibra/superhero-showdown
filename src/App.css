@@ -1,11 +1,3 @@
-/* App component styles */
-.App {
-  font-family: 'Lexend', sans-serif;
-  text-align: center;
-  color: #000;
-  animation: fadeIn 0.5s;
-}
-
 /* fade in animation */
 @keyframes fadeIn {
   from {
@@ -24,6 +16,14 @@
   to {
     opacity: 0;
   }
+}
+
+/* App component styles */
+.App {
+  font-family: 'Lexend', sans-serif;
+  text-align: center;
+  color: #000;
+  animation: fadeIn 0.5s;
 }
 
 /* wrapper width and horizontal center */
