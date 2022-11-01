@@ -1,6 +1,9 @@
 // import styles
 import './Card.css';
 
+// import logo image
+import logo from './mobileLogo.png';
+
 // import state functions
 import { useState, useRef, useEffect } from 'react';
 
@@ -247,7 +250,7 @@ const Card = (props) => {
                     <div className="cardBack">
 
                         {/* logo on back of card */}
-                        <img className="cardLogo" src="./mobile-logo.png" alt="Superhero Showdown Logo" />
+                        <img className="cardLogo" src={logo} alt="Superhero Showdown Logo" />
 
                     </div>
                 </div>
