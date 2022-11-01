@@ -15,10 +15,10 @@ import Game from "./Game";
 const Main = () => {
 
     // initial stateful variables and ref
-    const [ characterDeck, setCharacterDeck ] = useState({});
-    const [ gameStart, setGameStart ] = useState(false);
-    const [ playerName, setPlayerName ] = useState("");
-    const [ showInstructions, setShowInstructions ] = useState(false);
+    const [characterDeck, setCharacterDeck] = useState({});
+    const [gameStart, setGameStart] = useState(false);
+    const [playerName, setPlayerName] = useState("");
+    const [showInstructions, setShowInstructions] = useState(false);
     const instructionContent = useRef(null);
 
     // fisher-yates shuffle array function (https://www.jstips.co/en/javascript/shuffle-an-array/)
@@ -56,8 +56,8 @@ const Main = () => {
             const deck = response.val();
 
             // loop through character card data and push each card to a deck of all cards
-            for (let character in deck){
-                allCards.push({key: character, data: deck[character]});
+            for (let character in deck) {
+                allCards.push({ key: character, data: deck[character] });
             }
 
             // shuffle the deck of all the cards
@@ -67,7 +67,7 @@ const Main = () => {
             let cardCounter = 1;
 
             // loop through the deck of all cards
-            for (let character in allCards){
+            for (let character in allCards) {
 
                 // push each card to the new deck
                 newDeck.push(allCards[character]);
@@ -76,7 +76,7 @@ const Main = () => {
                 cardCounter++
 
                 // stop when the counter reaches 21
-                if (cardCounter === 21){
+                if (cardCounter === 21) {
                     break;
                 }
             }
@@ -94,12 +94,12 @@ const Main = () => {
         event.preventDefault()
 
         // if the user has entered their name
-        if (playerName){
+        if (playerName) {
 
             // start the game
             setGameStart(true);
-        
-        // if the user hasn't entered their name
+
+            // if the user hasn't entered their name
         } else {
 
             // alert the user
@@ -118,7 +118,7 @@ const Main = () => {
     const handleShowInstructions = () => {
 
         // if the instructions are showing
-        if (showInstructions){
+        if (showInstructions) {
 
             // hide the instructions
             setShowInstructions(false);
@@ -136,11 +136,11 @@ const Main = () => {
                 // if the instructions are meant to be showing
                 showInstructions
 
-                // give them full height and opacity
-                ? { maxHeight: instructionContent.current.scrollHeight + 5 + 'px', opacity: 1 }
+                    // give them full height and opacity
+                    ? { maxHeight: instructionContent.current.scrollHeight + 5 + 'px', opacity: 1 }
 
-                // else remove the height and opacity
-                : { maxHeight: "0px", opacity: 0 }
+                    // else remove the height and opacity
+                    : { maxHeight: "0px", opacity: 0 }
             }>
 
             <p>When the game starts, 20 cards are pulled from the database, shuffled, and dealt out into two decks—one for you and one for the computer (your opponent). Every card has a Marvel Comics superhero and their statistics in Intelligence, Strength, Speed, Durability, and Fighting.</p>
@@ -157,35 +157,35 @@ const Main = () => {
             {
                 // if the game hasn't started yet
                 !gameStart
-                // display start screen
-                ? <>
-                    <div className="instructions">
+                    // display start screen
+                    ? <>
+                        <div className="instructions">
 
-                        <h3>Game Instructions</h3>
-                        
-                        {instructionText}
+                            <h3>How to Play</h3>
 
-                        <button className="button" onClick={handleShowInstructions}>
-                            {
-                                showInstructions
-                                ? "Hide "
-                                : "Show "
-                            }
-                            Instructions</button>
+                            {instructionText}
 
-                    </div>
-                    <form className="startScreen">
+                            <button className="button" onClick={handleShowInstructions}>
+                                {
+                                    showInstructions
+                                        ? "Hide "
+                                        : "Show "
+                                }
+                                Instructions</button>
 
-                        <label htmlFor="nameInput">Enter your first name:</label>
+                        </div>
+                        <form className="startScreen">
 
-                        <input onChange={handleInputChange} type="text" id="nameInput"/>
+                            <label htmlFor="nameInput">Enter your first name:</label>
 
-                        <button className="button" onClick={handleGameStart}>Start Game</button>
+                            <input onChange={handleInputChange} type="text" id="nameInput" />
 
-                    </form>
-                </>
-                // if the game has started, display the game component
-                : <Game deck={characterDeck} name={playerName}/>
+                            <button className="button" onClick={handleGameStart}>Start Game</button>
+
+                        </form>
+                    </>
+                    // if the game has started, display the game component
+                    : <Game deck={characterDeck} name={playerName} />
             }
         </main>
     )

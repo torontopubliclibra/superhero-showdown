@@ -45,6 +45,7 @@
     margin: 10px 0px;
 }
 
+/* game area form styles */
 .gameArea form {
     display: flex;
     flex-direction: column;

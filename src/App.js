@@ -13,6 +13,7 @@ function App() {
 
   // App component return
   return (
+    
     <div className="App">
 
       <div className="wrapper">
@@ -30,7 +31,6 @@ function App() {
 
         </header>
 
-        {/* main component */}
         <Main />
 
         <footer>

@@ -13,6 +13,7 @@ main {
     justify-content: center;
 }
 
+/* instructions styles */
 .instructions {
     width: 100%;
     margin: 0 auto;
@@ -35,8 +36,8 @@ main {
 }
 
 .instructions button {
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .instructionText {
@@ -51,7 +52,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 30px 0px;
+    padding-bottom: 20px;
     padding-top: 0px;
     width: 400px;
 }
@@ -72,7 +73,7 @@ main {
 .startScreen input {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.5);
-    width: 100%;
+    width: 90%;
     padding: 10px;
     font-size: 25px;
     font-weight: 600;
@@ -102,11 +103,13 @@ main {
         padding: 15px 0px;
     }
 
+    /* instruction styles */
     .instructions {
         padding-left: 30px;
         padding-right: 30px;
     }
 
+    /* start screen styles */
     .startScreen input {
         max-width: 70%;
     }

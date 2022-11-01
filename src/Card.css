@@ -33,6 +33,7 @@
         transform: rotateY(180deg) translateX(-7px);
     }
 }
+
 /* inner card styles */
 .innerCard {
     align-self: center;
@@ -50,6 +51,7 @@
     backface-visibility: hidden;
 }
 
+/* card front and back styles */
 .cardFront, .cardBack {
     border: solid #000 4px;
     border-radius: 10px;
@@ -67,6 +69,7 @@
     overflow: hidden;
 }
 
+/* card back styles */
 .cardBack {
     color: #000;
     background-color: #a3cef1;
@@ -74,6 +77,7 @@
     transform: rotateY(180deg);
 }
 
+/* card back logo styles */
 img.cardLogo {
     max-width: 80%;
     object-fit: contain !important;
@@ -149,6 +153,7 @@ img.cardLogo {
 /* medium sized screens */
 @media screen and (max-width: 1200px) {
 
+    /* inner card styles */
     .innerCard {
         width: 100%;
         height: auto;
@@ -167,6 +172,7 @@ img.cardLogo {
         box-shadow: rgba(0, 0, 0, 0.5) -4px 4px 4px;
     }
 
+    /* player and computer card styles */
     .playerCard,
     .computerCard {
         width: 60%;
@@ -188,6 +194,7 @@ img.cardLogo {
         right: 0;
     }
 
+    /* card back logo styles */
     img.cardLogo {
         margin: 0 auto;
         position: initial !important;
