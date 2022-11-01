@@ -21,8 +21,8 @@ function App() {
           
           <h1>
 
-            <img className="logo" src={logo} alt="Superhero Showdown"/>
-            <img className="mobile-logo" src={mobileLogo} alt="Superhero Showdown"/>
+            <img className="logo" src={logo} alt="Superhero Showdown" title="Superhero Showdown"/>
+            <img className="mobile-logo" src={mobileLogo} alt="Superhero Showdown" title="Superhero Showdown"/>
 
           </h1>
 

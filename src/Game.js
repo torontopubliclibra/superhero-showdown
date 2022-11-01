@@ -453,6 +453,7 @@ const Game = (props) => {
     // Game component return
     return (
         
+        // game section
         <section className="game">
             {
                 // if the game is being played
@@ -477,6 +478,7 @@ const Game = (props) => {
                         {/* display select statistic form */}
                         {statForm}
 
+                        {/* display card pot if it has cards */}
                         {cardPot}
 
                     </div> {/* .gameArea end */}
@@ -499,8 +501,10 @@ const Game = (props) => {
                         {/* announce the winner */}
                         <p>{playerDeck[0].data.name} beat {computerDeck[0].data.name}! The card {andAlsoCardPot} will be added to your deck.</p>
 
+                        {/* display next turn or end game button */}
                         {button}
 
+                        {/* display card pot if it has cards */}
                         {cardPot}
 
                     </div> {/* .gameArea end */}
@@ -523,8 +527,10 @@ const Game = (props) => {
                         {/* announce the draw */}
                         <p>{playerDeck[0].data.name} tied with {computerDeck[0].data.name}! Both cards will be added to the pot.</p>
 
+                        {/* display next turn or end game button */}
                         {button}
 
+                        {/* display card pot if it has cards */}
                         {cardPot}
 
                     </div> {/* .gameArea end */}
@@ -542,12 +548,15 @@ const Game = (props) => {
                         <h4>You Lose</h4>
                     </div>
 
-                    {/* announce the loser */}
                     <div className="gameArea">
+
+                        {/* announce the loser */}
                         <p>{computerDeck[0].data.name} beat {playerDeck[0].data.name}! Your card {andAlsoCardPot} will be added to your opponent's deck.</p>
 
+                        {/* display next turn or end game button */}
                         {button}
 
+                        {/* display card pot if it has cards */}
                         {cardPot}
 
                     </div> {/* .gameArea end */}
