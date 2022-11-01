@@ -81,19 +81,19 @@ const Game = (props) => {
         // prevent the page from refreshing
         event.preventDefault();
 
+        // game over check function
+        const gameOverCheck = (deck) => {
+
+            // if either player is out of cards when the stats are checked
+            if (deck.length === 1){
+
+                // set the game over state to true
+                setGameOver(true);
+            }
+        }
+
         // if the user has made a selection
         if (statChoice){
-
-            // game over check function
-            const gameOverCheck = (deck) => {
-
-                // if either player is out of cards when the stats are checked
-                if (deck.length === 1){
-
-                    // set the game over state to true
-                    setGameOver(true);
-                }
-            }
 
             // find the corresponding statistic for each deck's top card
             const playerStat = playerDeck[0].data[statChoice];
@@ -374,19 +374,31 @@ const Game = (props) => {
         </form>
     )
 
-    // card pot text
+    // card pot display
     const cardPot = (
-        <p className="pot">Pot: {pot.length}</p>
+
+        // if the pot has any cards
+        pot.length > 0
+
+        // display the pot and it's length
+        ? <p className="pot">Pot: {pot.length}</p>
+
+        // else don't
+        : null
+
     )
 
-    // next turn button
-    const nextTurnButton = (
-        <button className="button" onClick={nextTurn}>Next Turn</button>
-    )
+    // next turn or game over buttons
+    const button = (
 
-    // end game button
-    const endGameButton = (
-        <button className="button" onClick={endGame}>End Game</button>
+        // if the game isn't over yet
+        !gameOver
+
+        // show the next turn button
+        ? <button className="button" onClick={nextTurn}>Next Turn</button>
+
+        // else show the end game button
+        : <button className="button" onClick={endGame}>End Game</button>
     )
 
     // card pot text for results
@@ -405,6 +417,7 @@ const Game = (props) => {
 
     // game over screen
     const gameOverScreen = (
+
         <div className="gameOver">
 
             {/* display game over text */}
@@ -433,11 +446,13 @@ const Game = (props) => {
 
             {/* play again button */}
             <button className="button" onClick={refresh}>Play Again</button>
+
         </div>
     )
 
     // Game component return
     return (
+        
         <section className="game">
             {
                 // if the game is being played
@@ -462,14 +477,7 @@ const Game = (props) => {
                         {/* display select statistic form */}
                         {statForm}
 
-                        {
-                            // if the pot has any cards
-                            pot.length > 0
-
-                            // display the pot and it's length
-                            ? cardPot
-                            : null
-                        }
+                        {cardPot}
 
                     </div> {/* .gameArea end */}
                 </>
@@ -490,25 +498,11 @@ const Game = (props) => {
 
                         {/* announce the winner */}
                         <p>{playerDeck[0].data.name} beat {computerDeck[0].data.name}! The card {andAlsoCardPot} will be added to your deck.</p>
-                        {
-                            // if the game isn't over yet
-                            !gameOver
 
-                            // show the next turn button
-                            ? nextTurnButton
+                        {button}
 
-                            // else show the end game button
-                            : endGameButton
+                        {cardPot}
 
-                        }
-                        {
-                            // if the pot has any cards
-                            pot.length > 0
-
-                            // display the pot and it's length
-                            ? cardPot
-                            : null
-                        }
                     </div> {/* .gameArea end */}
                 </>
                 : null
@@ -528,25 +522,11 @@ const Game = (props) => {
 
                         {/* announce the draw */}
                         <p>{playerDeck[0].data.name} tied with {computerDeck[0].data.name}! Both cards will be added to the pot.</p>
-                        {
 
-                            // if the game isn't over yet
-                            !gameOver
+                        {button}
 
-                            // show the next turn button
-                            ? nextTurnButton
+                        {cardPot}
 
-                            // else show the end game button
-                            : endGameButton
-                        }
-                        {
-                            // if the pot has any cards
-                            pot.length > 0
-
-                            // display the pot and it's length
-                            ? cardPot
-                            : null
-                        }
                     </div> {/* .gameArea end */}
                 </>
                 : null
@@ -565,24 +545,11 @@ const Game = (props) => {
                     {/* announce the loser */}
                     <div className="gameArea">
                         <p>{computerDeck[0].data.name} beat {playerDeck[0].data.name}! Your card {andAlsoCardPot} will be added to your opponent's deck.</p>
-                        {
-                            // if the game isn't over yet
-                            !gameOver
 
-                            // show the next turn button
-                            ? nextTurnButton
+                        {button}
 
-                            // else show the end game button
-                            : endGameButton
-                        }
-                        {
-                            // if the pot has any cards
-                            pot.length > 0
+                        {cardPot}
 
-                            // display the pot and it's length
-                            ? cardPot
-                            : null
-                        }
                     </div> {/* .gameArea end */}
                 </>
                 : null

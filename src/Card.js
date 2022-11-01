@@ -111,7 +111,7 @@ const Card = (props) => {
         if (name.length > 16) {
 
             // return the first 16 characters with ...
-            return name.substring(0, 15) + "..."
+            return name.substring(0, 14) + "..."
         
         // if the name is shorter
         } else {
