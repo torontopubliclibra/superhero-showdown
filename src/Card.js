@@ -25,7 +25,10 @@ const Card = (props) => {
     let spd = 0;
     let dur = 0;
     let fig = 0;
-    let color = `#000`;
+    let bgColor = `#000`;
+    let textColor = `#fff`;
+
+    // initial animation style objects
     let flipOut = {
         animation: 'none'
     };
@@ -48,12 +51,81 @@ const Card = (props) => {
         setFlipped(false);
         
     }, [props.card])
+
+    // function to determine light or dark text (adapted from https://awik.io/determine-color-bright-dark-using-javascript/)
+    const lightOrDark = (color) => {
+
+        // initial variables
+        let r;
+        let g;
+        let b;
+        let hsp;
+        
+        // if the colour is a rgb value
+        if (color.match(/^rgb/)) {
+
+            // store the red, green, blue values in separate variables
+            color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+            
+            r = color[1];
+            g = color[2];
+            b = color[3];
+        } 
+
+        // if the colour is a hex value
+        else {
+            
+            // convert it to RGB and store those color values as variables (adapted from http://gist.github.com/983661)
+            color = +("0x" + color.slice(1).replace( 
+            color.length < 5 && /./g, '$&$&'));
+
+            r = color >> 16;
+            g = (color >> 8) & 255;
+            b = color & 255;
+        }
+        
+        // hsp equation (adapted from http://alienryderflex.com/hsp.html)
+        hsp = Math.sqrt(
+            0.299 * (r * r) +
+            0.587 * (g * g) +
+            0.114 * (b * b)
+        );
+
+        // using the hsp value, determine whether the colour is light or dark
+        if (hsp>127.5) {
+
+            // if the color is light, return black
+            return '#000';
+        } 
+        else {
+
+            // if the color is dark, return white
+            return '#fff';
+        }
+    }
+
+    // string length check method
+    const nameCheck = (name) => {
+
+        // if the name is longer than 16 characters
+        if (name.length > 16) {
+
+            // return the first 16 characters with ...
+            return name.substring(0, 15) + "..."
+        
+        // if the name is shorter
+        } else {
+
+            // return the full name
+            return name
+        }
+    }
     
     // if there is a card
     if(props.card){
 
         // populate the known variables with the data
-        name = props.card.data.name;
+        name = nameCheck(props.card.data.name);
         img = props.card.data.img;
         alt = `Illustration of ` + props.card.data.name;
         url = props.card.data.url;
@@ -62,13 +134,14 @@ const Card = (props) => {
         spd = props.card.data.spd;
         dur = props.card.data.dur;
         fig = props.card.data.fig;
-        color = props.card.data.color;
+        bgColor = props.card.data.color;
+        textColor = lightOrDark(bgColor);
 
         // if there is a pseudonym
         if (props.card.data.aka){
 
             // populate that variable as well
-            aka = `(` + props.card.data.aka + `)`;
+            aka = `(` + nameCheck(props.card.data.aka) + `)`;
         }
     }
 
@@ -88,7 +161,8 @@ const Card = (props) => {
 
     // set the card styles to have the character's given colour
     let cardStyles = {
-        backgroundColor: color
+        backgroundColor: bgColor,
+        color: textColor
     }
 
     // create the right name for each card div (playerCard or computerCard)

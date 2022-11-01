@@ -140,7 +140,10 @@ const Game = (props) => {
     }
 
     // when the player clicks the next turn button
-    const nextTurn = () => {
+    const nextTurn = (event) => {
+
+        // disable the button until it disappears
+        event.currentTarget.disabled = true;
 
         // flip over card
         setCardsFlipped(true);

@@ -19,7 +19,7 @@ const Main = () => {
     const [ gameStart, setGameStart ] = useState(false);
     const [ playerName, setPlayerName ] = useState("");
 
-    // array shuffle function
+    // shuffle array function
     const shuffle = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
@@ -56,7 +56,7 @@ const Main = () => {
             shuffle(allCards);
 
             // set a counter to 1
-            let i = 1;
+            let cardCounter = 1;
 
             // loop through the deck of all cards
             for (let character in allCards){
@@ -65,10 +65,10 @@ const Main = () => {
                 newDeck.push(allCards[character]);
 
                 // add to the counter
-                i++
+                cardCounter++
 
                 // stop when the counter reaches 21
-                if (i === 21){
+                if (cardCounter === 21){
                     break;
                 }
             }

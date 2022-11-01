@@ -97,13 +97,21 @@
 
 .gameOver h3 {
     font-family: 'Fugaz One', sans-serif;
-    font-size: 30px;
+    font-size: 60px;
     margin: 15px;
 }
 
 .gameOver h4 {
-    font-size: 25px;
+    font-size: 40px;
     margin: 15px;
+    margin-top: 0;
+    text-transform: uppercase;
+}
+
+.gameOver p {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 0;
 }
 
 .gameOver ol {
@@ -449,7 +457,7 @@
 
     .gameOver h4 {
         font-size: 6vw;
-        margin-top: 0;
+        margin: 5px;
     }
 
     .gameOver p {
