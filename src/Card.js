@@ -58,36 +58,21 @@ const Card = (props) => {
     // function to determine light or dark text (adapted from https://awik.io/determine-color-bright-dark-using-javascript/)
     const lightOrDark = (color) => {
 
-        // initial variables
+        // initial r, g, b, and hsp variables
         let r;
         let g;
         let b;
         let hsp;
         
-        // if the colour is a rgb value
-        if (color.match(/^rgb/)) {
+        // convert the hex value to rgb and store those colour values in their variables (adapted from http://gist.github.com/983661)
+        color = +("0x" + color.slice(1).replace( 
+        color.length < 5 && /./g, '$&$&'));
 
-            // store the red, green, blue values in separate variables
-            color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
-            
-            r = color[1];
-            g = color[2];
-            b = color[3];
-        } 
-
-        // if the colour is a hex value
-        else {
-            
-            // convert it to RGB and store those colour values as variables (adapted from http://gist.github.com/983661)
-            color = +("0x" + color.slice(1).replace( 
-            color.length < 5 && /./g, '$&$&'));
-
-            r = color >> 16;
-            g = (color >> 8) & 255;
-            b = color & 255;
-        }
+        r = color >> 16;
+        g = (color >> 8) & 255;
+        b = color & 255;
         
-        // convert rgb to hsp equation (adapted from http://alienryderflex.com/hsp.html)
+        // run the rgb value through the hsp equation (adapted from http://alienryderflex.com/hsp.html)
         hsp = Math.sqrt(
             0.299 * (r * r) +
             0.587 * (g * g) +
@@ -96,12 +81,10 @@ const Card = (props) => {
 
         // using the hsp value, determine whether the colour is light or dark
         if (hsp>127.5) {
-
             // if the color is light, return black text
             return "#000000";
         } 
         else {
-
             // if the color is dark, return white text
             return "#ffffff";
         }
@@ -162,7 +145,7 @@ const Card = (props) => {
         }
     }
 
-    // set the card styles to have the character's given colour and either light or dark text to match
+    // set the card styles to have the character's given background colour and either light or dark text
     let cardStyles = {
         backgroundColor: bgColor,
         color: textColor
