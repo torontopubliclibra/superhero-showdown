@@ -205,7 +205,7 @@ const Card = (props) => {
     // Card component return
     return (
 
-        // css transition hook
+        // CSS transition component
         <CSSTransition
             in={flipped}
             nodeRef={nodeRef}

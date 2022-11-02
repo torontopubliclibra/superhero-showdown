@@ -143,10 +143,10 @@ const Main = () => {
                     : { maxHeight: "0px", opacity: 0 }
             }>
 
-            <p>When the game starts, 20 cards are pulled from the database, shuffled, and dealt out into two decks—one for you and one for the computer (your opponent). Every card has a Marvel Comics superhero and their statistics in Intelligence, Strength, Speed, Durability, and Fighting.</p>
-            <p>Each round, the top cards from both decks are revealed, with your card's stats visible, and your opponent's card's stats hidden. You then pick the statistic from your card that you think is a higher number than your opponent's.</p>
-            <p>Whichever card's stat is biggest wins the round. Both cards are then added to the bottom of the winner's deck. In the case of a tie, the cards are added to a pot, to be collected by the next winner.</p>
-            <p>The rounds repeat until either you or the computer runs out of cards. If you win the game, your name will be added to the recent winners board. Have fun!!</p>
+            <p>When the game starts, 20 cards are pulled from the database, shuffled, and dealt out into two decks—one for you and one for the computer (your opponent). Each card has a Marvel Comics superhero and their corresponding statistics in Intelligence, Strength, Speed, Durability, and Fighting.</p>
+            <p>Every round, the top cards from both decks are revealed, with your card's stats visible, and your opponent's card's stats hidden. You then pick the stat from your card that you think has a higher number than your opponent's.</p>
+            <p>Whichever card has the highest number for the chosen stat wins the round. Both cards are then moved to the bottom of the winner's deck. In the case of a tie, the cards are moved to a pot, to be collected by the next winner.</p>
+            <p>Gameplay repeats until either you or the computer runs out of cards. If you win the game, your name will be added to the recent winners board. Have fun!</p>
 
         </div>
     )
