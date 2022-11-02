@@ -1,38 +1,157 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+/* fade in animation */
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
   }
+}
+
+/* fade out animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* App component styles */
+.App {
+  font-family: 'Lexend', sans-serif;
+  text-align: center;
+  color: #000;
+  animation: fadeIn 0.5s;
+}
+
+/* wrapper styles */
+.wrapper {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* header styles */
+header {
+  padding: 40px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header h2 {
+  font-family: 'Fugaz One', sans-serif;
+  font-size: 30px;
+  margin: 0;
+  letter-spacing: 0.08em;
+  color: #000;
+  text-transform: uppercase;
+}
+
+/* header logo styles */
+header .logo {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+header .mobile-logo {
+  display: none;
+}
+
+/* input, select, and button styles */
+.button {
+  color: #000;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background-color: #fff;
+  border: solid #c1121f 3px;
+  background-color: #fff;
+  transition: box-shadow 0.3s;
+}
+
+.button:hover, .button:focus {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 3px,
+    rgba(0, 0, 0, 0.5) -3px 3px 3px;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-overflow: '';
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  background: url("./assets/select.png") no-repeat right #fff;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-position: 95%;
+  background-size: 20px;
+  transition: background-color 0.4s;
+}
+
+select:hover, select:focus {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* footer styles */
+footer {
+  padding: 25px 0px;
+}
+
+footer p a {
+  color: #000;
+}
+footer p a:hover {
+  color: #c1121f;
+}
+
+
+/* medium sized screens */
+@media screen and (max-width: 1200px){
+
+  /* header styles */
+  header h2 {
+      display: none;
+    }
+  
+}
+
+/* small screens */
+@media screen and (max-width: 768px) {
+
+  /* header styles */
+  header {
+    padding: 20px;
+  }
+
+  /* header logo styles */
+  header .logo {
+    display: none;
+  }
+
+  header .mobile-logo {
+    display: initial;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* button, input, and select styles */
+  .button {
+    font-size: 17px;
+  }
+
+  /* footer styles */
+  footer {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 3.2vw;
+  }
+  
 }

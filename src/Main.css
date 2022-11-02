@@ -1,0 +1,122 @@
+/* Main component styles */
+main {
+    background-color: #f6bd60c7;
+    border: solid #c1121f 5px;
+    border-radius: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 0px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* instructions styles */
+.instructions {
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 12%;
+    padding-right: 12%;
+    padding-top: 15px;
+    padding-bottom: 30px;
+}
+
+.instructions p {
+    padding: 0;
+    margin: 0;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+}
+
+.instructions h3 {
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+.instructions button {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.instructionText {
+    max-height: 0px;
+    opacity: 0;
+    transition: max-height 0.75s, opacity 1s;
+    overflow: hidden;
+}
+
+/* start screen styles */
+.startScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 20px;
+    padding-top: 0px;
+    width: 400px;
+}
+
+.startScreen label,
+.startScreen input,
+.startScreen button {
+    margin: 10px auto;
+}
+
+.startScreen label {
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.startScreen input {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 90%;
+    padding: 10px;
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border: solid #c1121f 3px;
+    border-radius: 10px;
+    transition: background-color 0.2s;
+    text-transform: uppercase;
+}
+
+.startScreen input:active,
+.startScreen input:focus,
+.startScreen input:hover {
+    background-color: #fff;
+}
+
+.startScreen button {
+    width: 60%;
+}
+
+/* small screens */
+@media screen and (max-width: 768px) {
+
+    /* Main component styles */
+    main {
+        height: 100%;
+        padding: 15px 0px;
+    }
+
+    /* instruction styles */
+    .instructions {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    /* start screen styles */
+    .startScreen input {
+        max-width: 70%;
+    }
+
+    .startScreen button {
+        width: 58%;
+    }
+
+}
