@@ -459,12 +459,27 @@ const Game = (props) => {
 
         </div>
     )
+    
+    // error screen
+    const errorScreen = (
+
+        <section className="errorScreen">
+
+            <h3>Oops!</h3>
+            <p>We couldn't retreive the character data from Firebase. Please try again later.</p>
+            <button className="button" onClick={refresh}>Refresh</button>
+
+        </section>
+    )
 
     // Game component return
     return (
         
-        // game section
-        <section className="game">
+        // if the deck has cards
+        (props.deck.length !== 0)
+
+        // render the game
+        ? <section className="game">
             {
                 // if the game is being played
                 turnState !== 5
@@ -590,6 +605,10 @@ const Game = (props) => {
                 : null
             }
         </section>
+
+        // if the deck doesn't have any cards, render the error screen
+        : errorScreen
+
     )
 }
 
