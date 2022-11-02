@@ -14,11 +14,6 @@ import Card from './Card';
 // Game component (passed props.deck and props.name from Main component)
 const Game = (props) => {
 
-    // refresh function
-    const refresh = () => {
-        window.location.reload(false);
-    }
-
     // initial stateful variables
     const [ computerDeck, setComputerDeck ] = useState([]);
     const [ playerDeck, setPlayerDeck ] = useState([]);
@@ -31,7 +26,7 @@ const Game = (props) => {
     const [ recentPlayers, setRecentPlayers ] = useState([]);
     const [ cardsFlipped, setCardsFlipped ] = useState(false);
 
-    // initial render side effects
+    // render side effects when props changes
     useEffect(() => {
 
         // props variables
@@ -68,6 +63,11 @@ const Game = (props) => {
 
     }, [props])
 
+    // refresh function
+    const refresh = () => {
+        window.location.reload(false);
+    }
+
     // when the user selects a statistic from the dropdown
     const handleInputChange = (event) => {
 
@@ -84,7 +84,7 @@ const Game = (props) => {
         // game over check function
         const gameOverCheck = (deck) => {
 
-            // if either player is out of cards when the stats are checked
+            // if the given deck is out of cards when the stats are checked
             if (deck.length === 1){
 
                 // set the game over state to true
@@ -102,16 +102,16 @@ const Game = (props) => {
             // if the player's stat is bigger than the computer's
             if (playerStat > computerStat) {
 
-                // set turn state to "win"
+                // set the turn state to 2 ("win")
                 setTurnState(2);
 
-                // check the loser's deck to see if the game is over
+                // check the computer's deck to see if the game is over
                 gameOverCheck(computerDeck);
             
             // if the player's stat and the computer's stat are equal
             } else if (playerStat === computerStat) {
 
-                // set turn state to "tie"
+                // set the turn state to 3 ("tie")
                 setTurnState(3);
 
                 // check both decks to see if the game is over
@@ -121,14 +121,14 @@ const Game = (props) => {
             // if the computer's stat is bigger than the player's
             } else if (playerStat < computerStat){
 
-                // set turn state to "lose"
+                // set the turn state to 4 ("lose")
                 setTurnState(4);
 
                 // check the player's deck to see if the game is over
                 gameOverCheck(playerDeck);
             }
 
-            // display the computer's cards statistics once the scores have been checked
+            // display the computer's card's statistics once the scores have been checked
             setDisplayStats(true);
 
         // if the user hasn't made a selection
@@ -142,10 +142,10 @@ const Game = (props) => {
     // when the player clicks the next turn button
     const nextTurn = (event) => {
 
-        // disable the button until it disappears
+        // disable the button until it disappears to prevent double-clicking
         event.currentTarget.disabled = true;
 
-        // flip over card
+        // change the card flipped state, flipping over the cards
         setCardsFlipped(true);
 
         // copy the decks and the pot
@@ -155,7 +155,7 @@ const Game = (props) => {
         const topComputerCard = newComputerDeck[0];
         let newPot = pot;
 
-        // empty default pot array
+        // initial default pot array
         const defaultPot = [];
 
         // after 0.5 seconds (card has started flipping over)
@@ -174,14 +174,14 @@ const Game = (props) => {
                     // push the removed cards to the bottom of the new player deck
                     newPlayerDeck.push(topComputerCard, topPlayerCard);
 
-                    // loop through the pot
+                    // then loop through the pot
                     newPot.forEach((card) => {
 
-                        // push any cards from the pot to the bottom of the new player deck
+                        // and push any cards from the pot to the bottom of the new player deck
                         newPlayerDeck.push(card);
                     })
 
-                    // set pot to default
+                    // set the pot to default
                     newPot = defaultPot;
 
                     // break out of the switch statement
@@ -202,10 +202,10 @@ const Game = (props) => {
                     // push the removed cards to the bottom of the new computer deck
                     newComputerDeck.push(topPlayerCard, topComputerCard);
 
-                    // loop through the pot
+                    // then loop through the pot
                     newPot.forEach((card) => {
 
-                        // push any cards from the pot to the bottom of the new computer deck
+                        // and push any cards from the pot to the bottom of the new computer deck
                         newComputerDeck.push(card);
                     })
 
@@ -252,7 +252,7 @@ const Game = (props) => {
     // when the user ends the game
     const endGame = () => {
 
-        // set the turn state to "game over"
+        // set the turn state to 5 ("game over")
         setTurnState(5);
 
         // player database variables
@@ -266,23 +266,23 @@ const Game = (props) => {
             push(dbRef, player);
         }
 
-        // retreive player data
+        // then retreive the player data with our new winner
         onValue(dbRef, (response) => {
 
-            // empty array for all of the players
+            // initial empty array for all of the players
             const allPlayers = [];
 
-            // player data
+            // store player names object in a variable
             const playerNames = response.val();
 
-            // loop through the player data
+            // loop through the player names object
             for (let player in playerNames){
 
-                // push each item in the player data into the array of players
+                // push each item in the player names object into the array of players
                 allPlayers.push({key: player, name: playerNames[player]})
             }
 
-            // reverse the players array
+            // reverse the entire players array
             allPlayers.reverse();
 
             // create a new array with just the most recent 5 items
@@ -291,6 +291,7 @@ const Game = (props) => {
             // set the recent players state to the new players array
             setRecentPlayers(newRecentPlayers);
             
+        // stop listening for data once it has been received
         }, { onlyOnce: true })
     }
 
@@ -318,6 +319,8 @@ const Game = (props) => {
                     ? <div className="stackCard stackCard2"></div>
                     : null
             }
+
+            {/* deck count */}
             <div className="deck">
 
                 <p>Deck: {playerDeck.length}</p>
@@ -350,6 +353,8 @@ const Game = (props) => {
                     ? <div className="stackCard stackCard2"></div>
                     : null
             }
+
+            {/* deck count */}
             <div className="deck">
 
                 <p>Deck: {computerDeck.length}</p>
@@ -362,6 +367,8 @@ const Game = (props) => {
     const statForm = (
         <form>
             <label htmlFor="statistics">Pick the stat that you think will beat your opponent:</label>
+
+            {/* statistic selector */}
             <select id="statistics" onChange={handleInputChange}>
                 <option value="" default>Select a statistic:</option>
                 <option value="int" default>Intelligence</option>
@@ -370,7 +377,10 @@ const Game = (props) => {
                 <option value="dur">Durability</option>
                 <option value="fig">Fighting</option>
             </select>
+
+            {/* fight button */}
             <button className="button" onClick={checkStats}>Fight</button>
+
         </form>
     )
 
@@ -389,7 +399,7 @@ const Game = (props) => {
     )
 
     // next turn or game over buttons
-    const button = (
+    const turnButton = (
 
         // if the game isn't over yet
         !gameOver
@@ -502,7 +512,7 @@ const Game = (props) => {
                         <p>{playerDeck[0].data.name} beat {computerDeck[0].data.name}! The card {andAlsoCardPot} will be added to your deck.</p>
 
                         {/* display next turn or end game button */}
-                        {button}
+                        {turnButton}
 
                         {/* display card pot if it has cards */}
                         {cardPot}
@@ -528,7 +538,7 @@ const Game = (props) => {
                         <p>{playerDeck[0].data.name} tied with {computerDeck[0].data.name}! Both cards will be added to the pot.</p>
 
                         {/* display next turn or end game button */}
-                        {button}
+                        {turnButton}
 
                         {/* display card pot if it has cards */}
                         {cardPot}
@@ -554,7 +564,7 @@ const Game = (props) => {
                         <p>{computerDeck[0].data.name} beat {playerDeck[0].data.name}! Your card {andAlsoCardPot} will be added to your opponent's deck.</p>
 
                         {/* display next turn or end game button */}
-                        {button}
+                        {turnButton}
 
                         {/* display card pot if it has cards */}
                         {cardPot}

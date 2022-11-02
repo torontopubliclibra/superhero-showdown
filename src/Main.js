@@ -21,7 +21,7 @@ const Main = () => {
     const [showInstructions, setShowInstructions] = useState(false);
     const instructionContent = useRef(null);
 
-    // fisher-yates shuffle array function (https://www.jstips.co/en/javascript/shuffle-an-array/)
+    // fisher-yates shuffle array function (adapted from https://www.jstips.co/en/javascript/shuffle-an-array/)
     const shuffle = (array) => {
 
         // loop through the array
@@ -72,7 +72,7 @@ const Main = () => {
                 // push each card to the new deck
                 newDeck.push(allCards[character]);
 
-                // add to the counter
+                // add to the counter after every card
                 cardCounter++
 
                 // stop when the counter reaches 21
@@ -84,6 +84,7 @@ const Main = () => {
             // set character deck state to the shuffled 20 card deck
             setCharacterDeck(newDeck);
 
+        // stop listening for data once it has been received
         }, { onlyOnce: true })
     }, [])
 
@@ -99,7 +100,7 @@ const Main = () => {
             // start the game
             setGameStart(true);
 
-            // if the user hasn't entered their name
+        // if the user hasn't entered their name
         } else {
 
             // alert the user
@@ -122,6 +123,8 @@ const Main = () => {
 
             // hide the instructions
             setShowInstructions(false);
+        
+        // if the instructions aren't showing
         } else {
 
             // show the instructions
@@ -129,10 +132,14 @@ const Main = () => {
         }
     }
 
+    // instruction text
     const instructionText = (
+
+        // takes a reference to show/hide text
         <div ref={instructionContent}
             className="instructionText"
             style={
+
                 // if the instructions are meant to be showing
                 showInstructions
 
@@ -143,7 +150,9 @@ const Main = () => {
                     : { maxHeight: "0px", opacity: 0 }
             }>
 
-            <p>When the game starts, 20 cards are pulled from the database, shuffled, and dealt out into two decks—one for you and one for the computer (your opponent). Each card has a Marvel Comics superhero and their corresponding statistics in Intelligence, Strength, Speed, Durability, and Fighting.</p>
+            {/* instructions */}
+            
+            <p>When the game starts, 20 cards are pulled from the database, shuffled, and dealt out into two decks—one for you and one for the computer (your opponent). Each card has a Marvel Comics superhero and their corresponding statistics (between 1 and 7) in Intelligence, Strength, Speed, Durability, and Fighting.</p>
             <p>Every round, the top cards from both decks are revealed, with your card's stats visible, and your opponent's card's stats hidden. You then pick the stat from your card that you think has a higher number than your opponent's.</p>
             <p>Whichever card has the highest number for the chosen stat wins the round. Both cards are then moved to the bottom of the winner's deck. In the case of a tie, the cards are moved to a pot, to be collected by the next winner.</p>
             <p>Gameplay repeats until either you or the computer runs out of cards. If you win the game, your name will be added to the recent winners board. Have fun!</p>
@@ -157,14 +166,17 @@ const Main = () => {
             {
                 // if the game hasn't started yet
                 !gameStart
-                    // display start screen
+                    // display instructions and start screen
                     ? <>
+
+                        {/* instructions */}
                         <div className="instructions">
 
                             <h3>How to Play</h3>
 
                             {instructionText}
 
+                            {/* hide/show instructions button */}
                             <button className="button" onClick={handleShowInstructions}>
                                 {
                                     showInstructions
@@ -174,12 +186,16 @@ const Main = () => {
                                 Instructions</button>
 
                         </div>
+
+                        {/* start screen */}
                         <form className="startScreen">
 
                             <label htmlFor="nameInput">Enter your first name:</label>
-
+                            
+                            {/* name input */}
                             <input onChange={handleInputChange} type="text" id="nameInput" />
 
+                            {/* start game button */}
                             <button className="button" onClick={handleGameStart}>Start Game</button>
 
                         </form>

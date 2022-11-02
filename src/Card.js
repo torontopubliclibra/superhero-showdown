@@ -2,15 +2,15 @@
 import './Card.css';
 
 // import logo image
-import logo from './mobileLogo.png';
+import logo from './assets/mobileLogo.png';
 
 // import state functions
 import { useState, useRef, useEffect } from 'react';
 
-// import transition hook
+// import CSS transition component
 import { CSSTransition } from 'react-transition-group';
 
-// Card component (passed props.type, props.card, props.displayStats from Game component)
+// Card component (passed props.type, props.card, props.displayStats, and props.flipped from Game component)
 const Card = (props) => {
 
     // initial stateful variable and ref
@@ -78,7 +78,7 @@ const Card = (props) => {
         // if the colour is a hex value
         else {
             
-            // convert it to RGB and store those color values as variables (adapted from http://gist.github.com/983661)
+            // convert it to RGB and store those colour values as variables (adapted from http://gist.github.com/983661)
             color = +("0x" + color.slice(1).replace( 
             color.length < 5 && /./g, '$&$&'));
 
@@ -87,7 +87,7 @@ const Card = (props) => {
             b = color & 255;
         }
         
-        // hsp equation (adapted from http://alienryderflex.com/hsp.html)
+        // convert rgb to hsp equation (adapted from http://alienryderflex.com/hsp.html)
         hsp = Math.sqrt(
             0.299 * (r * r) +
             0.587 * (g * g) +
@@ -97,13 +97,13 @@ const Card = (props) => {
         // using the hsp value, determine whether the colour is light or dark
         if (hsp>127.5) {
 
-            // if the color is light, return black
-            return '#000';
+            // if the color is light, return black text
+            return "#000000";
         } 
         else {
 
-            // if the color is dark, return white
-            return '#fff';
+            // if the color is dark, return white text
+            return "#ffffff";
         }
     }
 
@@ -113,10 +113,10 @@ const Card = (props) => {
         // if the name is longer than 16 characters
         if (name.length > 16) {
 
-            // return the first 16 characters with ...
+            // return the first 16 characters with "..." at the end
             return name.substring(0, 14) + "..."
         
-        // if the name is shorter
+        // if the name is shorter than or equal to 16 characters
         } else {
 
             // return the full name
@@ -148,36 +148,41 @@ const Card = (props) => {
         }
     }
 
-    // if card is ready to be flipped over
+    // if the card is ready to be flipped over
     if(props.flipped){
 
-        // flip over card
+        // flip over the card
         flipOut = {
             animation: 'flipOut ease-in-out 1s',
         }
 
-        // fade in card front
+        // fade out the card front
         fadeOut = {
             animation: 'fadeOut ease-in 0.5s'
         }
     }
 
-    // set the card styles to have the character's given colour
+    // set the card styles to have the character's given colour and either light or dark text to match
     let cardStyles = {
         backgroundColor: bgColor,
         color: textColor
     }
 
-    // create the right name for each card div (playerCard or computerCard)
+    // create the right div name for each card (playerCard or computerCard)
     let cardType = props.type + 'Card';
 
+    // card title
     const cardTitle = (
+
         <div className="cardTitle">
+
+            {/* character name and link */}
             <p style= {cardStyles} >
                 <a href={url} target="_blank" rel="noreferrer">
                     {name}
                 </a>
                 <br/>
+
             {
                 // if there is a pseudonym
                 aka
@@ -186,11 +191,16 @@ const Card = (props) => {
                 ? aka
                 : null
             }
+
             </p>
+
         </div>
+
     )
 
+    // card statistics
     const cardStats = (
+
         <div className="cardStats">
             <ul className="stats" style= {cardStyles} >
                 <li>Intelligence: {int}</li>
@@ -200,6 +210,7 @@ const Card = (props) => {
                 <li>Fighting: {fig}</li>
             </ul>
         </div> // .cardStats end
+
     )
     
     // Card component return
@@ -216,7 +227,7 @@ const Card = (props) => {
             {/* card container */}
             <div className={cardType}>
 
-                {/* animated card */}
+                {/* takes a reference for card flip animation */}
                 <div
                     className="innerCard"
                     ref={nodeRef}

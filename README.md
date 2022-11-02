@@ -6,9 +6,9 @@
 
 ## Functionality
 
-"Superhero Showdown" is an online superhero card game written with React and using data pulled from the [Marvel Database](https://marvel.fandom.com/wiki/Marvel_Database) and stored in Firebase.
+This app is an online superhero card game written with React and using data pulled from the [Marvel Database](https://marvel.fandom.com/wiki/Marvel_Database) and stored in Firebase.
 
-On app load, the user is presented with a main component that details how to play the game, and prompts them to input their first name. While they are entering their name, the database is queried for all of its 40+ superhero data objects, each featuring a character's name(s), image, accent colour, Marvel Database url, and their corresponding statistics in Intelligence, Strength, Speed, Durability, and Fighting.
+On app load, the user is presented with a main component that details how to play the game, and prompts them to input their first name. While they are entering their name, the database is queried for all of its 40+ superhero data objects, each featuring a character's name(s), image, accent colour, Marvel Database url, and their corresponding statistics (between 1 and 7) in Intelligence, Strength, Speed, Durability, and Fighting.
 
 Once the main component has retreived all of the character card objects, the deck of cards is shuffled and the first 20 are stored as an array in a state variable representing the shuffled deck of characters. When the user has entered their name and pressed start, the game component is rendered, with the main component passing the player's name and the full character deck as properties.
 

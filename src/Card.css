@@ -1,4 +1,4 @@
-/* ReactCSSTransition generated animation classes */
+/* ReactCSSTransition generated animation classes for flip in animation on re-render */
 .flip-enter {
     transform: rotateY(180deg) translateX(-7px);
 }

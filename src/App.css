@@ -26,7 +26,7 @@
   animation: fadeIn 0.5s;
 }
 
-/* wrapper width and horizontal center */
+/* wrapper styles */
 .wrapper {
   max-width: 90%;
   margin: 0 auto;
@@ -41,6 +41,16 @@ header h1 {
   margin: 0;
 }
 
+header h2 {
+  font-family: 'Fugaz One', sans-serif;
+  font-size: 30px;
+  margin: 0;
+  letter-spacing: 0.08em;
+  color: #000;
+  text-transform: uppercase;
+}
+
+/* header logo styles */
 header .logo {
   width: 100%;
   max-width: 800px;
@@ -49,15 +59,6 @@ header .logo {
 
 header .mobile-logo {
   display: none;
-}
-
-header h2 {
-  font-family: 'Fugaz One', sans-serif;
-  font-size: 30px;
-  margin: 0;
-  letter-spacing: 0.08em;
-  color: #000;
-  text-transform: uppercase;
 }
 
 /* input, select, and button styles */
@@ -87,7 +88,7 @@ select {
   text-overflow: '';
   font-weight: 600;
   letter-spacing: 0.03em;
-  background: url("./select.png") no-repeat right #fff;
+  background: url("./assets/select.png") no-repeat right #fff;
   background-color: rgba(255, 255, 255, 0.5);
   background-position: 95%;
   background-size: 20px;
@@ -129,6 +130,7 @@ footer p a:hover {
     padding: 20px;
   }
 
+  /* header logo styles */
   header .logo {
     display: none;
   }
