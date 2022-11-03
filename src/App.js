@@ -38,7 +38,7 @@ function App() {
 
           <p>All character images and statistics are taken from the <a href="https://marvel.fandom.com/wiki/Marvel_Database" target="_blank" rel="noreferrer">Marvel Database Wiki</a> and stored on <a href="https://firebase.google.com/" target="_blank" rel="noreferrer">Firebase</a>.</p>
 
-          <p>This app was built by <a href="https://danateagle.com" target="_blank" rel="noreferrer">Dana Teagle</a> at <a href="https://junocollege.com" target="_blank" rel="noreferrer">Juno College</a> in 2022 using the <a href="https://reactjs.org/" target="_blank" rel="noreferrer">React.js</a> library.</p>
+          <p>This app was built by <a href="https://danateagle.com" target="_blank" rel="noreferrer">Dana Teagle</a> at <a href="https://junocollege.com" target="_blank" rel="noreferrer">Juno College</a> in 2022 using the <a href="https://reactjs.org/" target="_blank" rel="noreferrer">React</a> library.</p>
 
         </footer>
 
