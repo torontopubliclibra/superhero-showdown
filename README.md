@@ -40,4 +40,4 @@ This was my first app built with the React library and mostly served as practice
 
 ## Developer
 
-[Dana Teagle](https://danateagle.com) (they/she) is a web developer from Tkaronto, Ontario. You can find them on Twitter at [@teagleistyping](https://twitter.com/teagleistyping) and on GitHub at [torontopubliclibra](https://github.com/torontopubliclibra).
+[Dana Teagle](https://danateagle.com) (she/her) is a web developer from Tkaronto, Ontario.
