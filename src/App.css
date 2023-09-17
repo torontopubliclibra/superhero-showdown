@@ -102,6 +102,10 @@ select:hover, select:focus {
 /* footer styles */
 footer {
   padding: 25px 0px;
+  
+  p {
+    line-height: 1.75;
+  }
 }
 
 footer p a {
