@@ -35,8 +35,7 @@ function App() {
         <Main />
 
         <footer>
-          <p>This game was built by <a href="https://danateagle.com" target="_blank" rel="noreferrer">Dana Teagle</a> using React and CSS. See the repo <a href="https://github.com/torontopubliclibra/superhero-showdown" target="_blank" rel="noreferrer">here</a>.</p>
-          <p>All character images and statistics are sourced from the <a href="https://marvel.fandom.com/wiki/Marvel_Database" target="_blank" rel="noreferrer">Marvel Database Wiki</a>. No copyright infringement intended.</p>
+          <p>This game was built by <a href="https://danateagle.com" target="_blank" rel="noreferrer" title="Dana Teagle's website">Dana Teagle</a> using React and CSS. The character images and statistics are sourced from the <a href="https://marvel.fandom.com/wiki/Marvel_Database" target="_blank" rel="noreferrer" title="Marvel Database Wiki">Marvel Database Wiki</a>. No copyright infringement is intended. See the source code <a href="https://github.com/torontopubliclibra/superhero-showdown" target="_blank" rel="noreferrer" title="Superhero Showdown on Github">here</a>.</p>
         </footer>
 
       </div> {/* .wrapper end */}
