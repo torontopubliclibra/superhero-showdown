@@ -12,3 +12,8 @@ I originally built this application in Oct and Nov 2022 during my time at Juno C
 - CSSTransition component from [React Transition Group](https://reactcommunity.org/react-transition-group/css-transition)
 - Fisher-Yates shuffle array function adapted from [JSTips](https://www.jstips.co/en/javascript/shuffle-an-array/)
 - Light or Dark colour determining function adapted from [Andreas Wik](https://awik.io/determine-color-bright-dark-using-javascript/), [Jed Schmidt](https://gist.github.com/jed/983661), and [Darel Rex Finley](http://alienryderflex.com/hsp.html)
+
+## Setup
+### Build commands
+- npm run start
+- npm run build
