@@ -52,7 +52,7 @@
 
 /* card front and back styles */
 .cardFront, .cardBack {
-    border: solid #28292E 4px;
+    border: solid #28292E 3px;
     border-radius: 10px;
     box-shadow: #28292e83 4px 4px 4px;
     position: absolute;
@@ -107,16 +107,16 @@ p.cardLogo {
     margin: 0px 0px;
     width: 105%;
     z-index: 3;
-    border-bottom: solid #28292E 4px;
+    border-bottom: solid #28292E 3px;
     white-space: nowrap;
 }
 
 .playerCard .cardTitle {
-    border-left: solid #28292E 4px;
+    border-left: solid #28292E 3px;
 }
 
 .computerCard .cardTitle {
-    border-right: solid #28292E 4px;
+    border-right: solid #28292E 3px;
 }
 
 .cardTitle p {
@@ -139,7 +139,7 @@ p.cardLogo {
     width: 105%;
     animation: fadeIn 0.5s;
     z-index: 3;
-    border-top: solid #28292E 4px;
+    border-top: solid #28292E 3px;
 }
 
 .cardStats ul {

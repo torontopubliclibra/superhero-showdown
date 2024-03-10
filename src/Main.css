@@ -1,8 +1,8 @@
 /* Main component styles */
 main {
     background-color: #255f8573;
-    border-top: solid #28292E 5px;
-    border-bottom: solid #28292E 5px;
+    border-top: solid #28292E 3px;
+    border-bottom: solid #28292E 3px;
     display: flex;
     flex-wrap: wrap;
     width: 100vw;
