@@ -1,10 +1,5 @@
 // import styles
 import './App.css';
-
-// import logo images
-import logo from './assets/logo.png';
-import mobileLogo from './assets/mobileLogo.png';
-
 // import components
 import Main from './Main'
 

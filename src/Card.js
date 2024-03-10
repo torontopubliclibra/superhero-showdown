@@ -1,9 +1,6 @@
 // import styles
 import './Card.css';
 
-// import logo image
-import logo from './assets/mobileLogo.png';
-
 // import state functions
 import { useState, useRef, useEffect } from 'react';
 
