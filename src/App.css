@@ -78,7 +78,7 @@ header .mobile-logo {
 /* input, select, and button styles */
 .button {
   font-family: 'Lexend Exa', sans-serif;
-  font-size: 16px;
+  font-size: 15px;
   color: #28292E;
   border-radius: 10px;
   padding: 10px;
@@ -99,7 +99,7 @@ header .mobile-logo {
 
 select {
   font-family: 'Lexend Exa', sans-serif;
-  font-size: 16px;
+  font-size: 15px;
   -webkit-appearance: none;
   -moz-appearance: none;
   text-overflow: '';
@@ -171,15 +171,11 @@ footer p a:hover {
 
   /* header logo styles */
   header h1, header h1 a {
-    -webkit-text-stroke-width: 1px;
+    color: #FFB41F;
+    -webkit-text-stroke-width: 1.25px;
     font-size: 55px;
     line-height: 1;
     margin: 15px 0;
-  }
-
-  /* button, input, and select styles */
-  .button {
-    font-size: 16px;
   }
 
   .button:hover, select:hover {
