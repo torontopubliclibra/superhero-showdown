@@ -244,7 +244,9 @@ const Card = (props) => {
                     <div className="cardBack">
 
                         {/* logo on back of card */}
-                        <img className="cardLogo" src={logo} alt="Superhero Showdown Logo" />
+                        <p className='cardLogo'>
+                            Superhero Showdown
+                        </p>
 
                     </div>
                 </div>

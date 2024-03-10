@@ -1,11 +1,16 @@
+:root {
+  color: #28292E;
+  font-family: 'Lexend Exa', sans-serif;
+  background-color: #28292E;
+  background: repeating-linear-gradient(135deg, #78848e7b 0, #78848e7b 5%, #28292e15 0, #28292e25 50%) 0 / 12px 12px;
+}
+
 /* default body styles */
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #a3cef1;
-  background: repeating-linear-gradient(135deg, #78848ee2 0, #78848ee2 5%, #a3cef1 0, #a3cef1 50%) 0 / 12px 12px;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 /* default code styles */

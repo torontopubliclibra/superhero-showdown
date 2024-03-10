@@ -163,6 +163,7 @@ const Main = () => {
     // Main component return
     return (
         <main>
+            <div className="wrapper">
             {
                 // if the game hasn't started yet
                 !gameStart
@@ -203,6 +204,7 @@ const Main = () => {
                     // if the game has started, display the game component
                     : <Game deck={characterDeck} name={playerName} />
             }
+            </div>
         </main>
     )
 }

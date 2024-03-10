@@ -495,7 +495,7 @@ const Game = (props) => {
 
                     {/* display versus text */}
                     <div className="gameText">
-                        <h4>v.s.</h4>
+                        <h4>vs</h4>
                     </div>
 
                     <div className="gameArea">
