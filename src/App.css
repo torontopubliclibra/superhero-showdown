@@ -171,6 +171,7 @@ footer p a:hover {
 
   /* header logo styles */
   header h1, header h1 a {
+    -webkit-text-stroke-width: 1px;
     font-size: 55px;
     line-height: 1;
     margin: 15px 0;
